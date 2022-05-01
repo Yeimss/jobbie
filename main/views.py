@@ -9,3 +9,5 @@ def register_page(request):
         'register_form':register_form
     })
 
+def index(request):
+    return render(request, 'index/index.html')
