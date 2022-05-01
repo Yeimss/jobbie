@@ -11,11 +11,11 @@ class Departaments(models.Model):
 
 class Cities(models.Model):
     city=models.CharField(max_length=50, verbose_name="Ciudad")
-    departametId=models.OneToOneField(Departaments, verbose_name="DepartamentoId")
+    departametId=models.ForeignKey(Departaments, verbose_name="DepartamentoId", on_delete=models.PROTECT)
 
 class Neighborhoods(models.Model):
     neighborhood=models.CharField(max_length=80, verbose_name="Barrio")
-    cityId=models.OneToOneField(Cities, verbose_name="CiudadesId")
+    cityId=models.ForeignKey(Cities, verbose_name="CiudadesId", on_delete=models.PROTECT)
 
 class Clients(models.Model):
     name=models.CharField(max_length=100, verbose_name="Nombre")    
@@ -23,10 +23,10 @@ class Clients(models.Model):
     mail=models.CharField(max_length=200, verbose_name="Correo")
     bornDate=models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, verbose_name="Fecha de nacimiento")	
     password=models.CharField(max_length=200, verbose_name="Password")	
-    gender=models.IntegerField()
+    gender=models.OneToOneField(Genders, on_delete=models.PROTECT)
     photo=models.ImageField(default="null", upload_to='clientes')	
-    mobile=models.IntegerField(max_length=13, verbose_name="Celular")
-    neighborhoodId=models.OneToOneField(Neighborhoods, verbose_name="Barrio")
+    mobile=models.IntegerField(verbose_name="Celular")
+    neighborhoodId=models.ForeignKey(Neighborhoods, verbose_name="Barrio", on_delete=models.PROTECT)
 
 
 class Workeds(models.Model):	
@@ -35,8 +35,8 @@ class Workeds(models.Model):
     mail=models.CharField(max_length=200, verbose_name="Correo")
     bornDate=models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, verbose_name="Fecha de nacimiento")		
     password=models.CharField(max_length=200, verbose_name="Password")	
-    gender=models.IntegerField()
+    gender=models.OneToOneField(Genders, on_delete=models.PROTECT)
     photo=models.ImageField(default="null", upload_to='clientes')		
-    mobile=models.IntegerField(max_length=13, verbose_name="Celular")
-    neighborhoodId=models.OneToOneField(Neighborhoods, verbose_name="Barrio")
+    mobile=models.IntegerField(verbose_name="Celular")
+    neighborhoodId=models.ForeignKey(Neighborhoods, verbose_name="Barrio", on_delete=models.PROTECT)
     descripcion_personal=models.TextField(verbose_name="Descripcion")
