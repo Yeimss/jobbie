@@ -1,8 +1,24 @@
 {% extends 'layout/layout.html' %}
 {% load static %}
-
 {% block title %}{{title}}{% endblock title %}
 {% block main %}
-    <form method="post" action="">
-    </form>
+    <div class="waves col-0 col-md-7">
+      <img  src={% static 'images/jobbie.png' %} width ="600px" alt="" />
+    </div>
+    <div class="col-11 col-md-5 d-flex justify-content-center">
+        {% if form.errors %}
+
+        {% endif %}
+        <div class="login-data">
+            <h1>Registrarse</h1>
+            <form method="POST" class="login-form mt-3">
+                {% csrf_token %}
+                {{form}}
+                
+                <input type="submit" value="Registrarse" class="btn-login w-100 mt-3"/>
+            </form>
+        </div>
+    </div>
+
+
 {% endblock main %}
