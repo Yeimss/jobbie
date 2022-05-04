@@ -39,14 +39,8 @@ def register_page(request):
     })
 
 def index(request):
-    departamentos=Departaments.objects.all().order_by('departament')
-    departamentos_list=[]
-    
-    for departamento in departamentos:
-        depa=(departamento.id,departamento.departament)
-        departamentos_list.append(depa)
     return render(request, 'index/index.html',{
-        'depa':departamentos_list
+        'Titulo':'Inicio'
     })
 
 def login_page(request):

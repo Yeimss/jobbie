@@ -10,7 +10,7 @@ class Registrarse(forms.Form):
 
     #---------------------------------------------nombre
     name=forms.CharField(
-        label='Nombre',
+        label='',
         max_length=100,
         required=True,
         widget=forms.TextInput(
@@ -26,7 +26,7 @@ class Registrarse(forms.Form):
     )
     #---------------------------------------------apellido
     lastName=forms.CharField(
-        label='Apellido',
+        label='',
         max_length=100,
         required=True,
         widget=forms.TextInput(
@@ -42,7 +42,7 @@ class Registrarse(forms.Form):
     )
     #----------------------------------------------correo
     correo=forms.CharField(
-        label="Correo",
+        label="",
         widget=forms.EmailInput(
             attrs={
                 'class':'form-input',
@@ -63,7 +63,7 @@ class Registrarse(forms.Form):
         depa=(departamento.id,departamento.departament)
         departamentos_list.append(depa)
     departamento=forms.TypedChoiceField(
-        label = "Departamento",
+        label = "",
         widget=forms.Select(
             attrs={
                 'class':'form-input-select',
@@ -80,7 +80,7 @@ class Registrarse(forms.Form):
         ciu=(ciudad.id,ciudad.city)
         ciudades_list.append(ciu)
     ciudad=forms.TypedChoiceField(
-        label = "Ciudad",
+        label = "",
         widget=forms.Select(
             attrs={
                 'class':'form-input-select',
@@ -96,7 +96,7 @@ class Registrarse(forms.Form):
         bar=(barrio.id, barrio.neighborhood)
         barrios_list.append(bar)
     barrio=forms.TypedChoiceField(
-        label = "Barrio",
+        label = "",
         widget=forms.Select(
             attrs={
                 'class':'form-input-select',
@@ -107,7 +107,7 @@ class Registrarse(forms.Form):
 
     #---------------------------------------------contraseña
     password=forms.CharField(
-        label="Contraseña",
+        label="",
         widget=forms.PasswordInput(
             attrs={
                 'placeholder': 'Contraseña',
@@ -121,7 +121,7 @@ class Registrarse(forms.Form):
     )
 
     rePassword=forms.CharField(
-        label="Confirmar Contraseña",
+        label="",
         widget=forms.PasswordInput(
             attrs={
                 'placeholder': 'Confirmar contraseña',
@@ -137,7 +137,7 @@ class Registrarse(forms.Form):
 
 class Login(forms.Form):
     correo=forms.CharField(
-        label="Correo",
+        label="",
         widget=forms.EmailInput(
             attrs={
                 'class':'form-input',
@@ -152,7 +152,7 @@ class Login(forms.Form):
     )
 
     password=forms.CharField(
-        label="Contraseña",
+        label="",
         widget=forms.PasswordInput(
             attrs={
                 'placeholder': 'Contraseña',
