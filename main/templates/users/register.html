@@ -2,13 +2,15 @@
 {% load static %}
 {% block title %}{{title}}{% endblock title %}
 {% block main %}
-    <div class="waves col-0 col-md-7">
-      <img  src={% static 'images/jobbie.png' %} width ="600px" alt="" />
+    {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            Hay errores en el formulario
+        </div>
+    {% endif %}
+    <div class="col-0 col-md-7">
+      <img  src={% static 'images/jobbie.png' %} class="img-fluid" alt="" />
     </div>
     <div class="col-11 col-md-5 d-flex justify-content-center">
-        {% if form.errors %}
-
-        {% endif %}
         <div class="login-data">
             <h1>Registrarse</h1>
             <form method="POST" class="login-form mt-3">
