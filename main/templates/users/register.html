@@ -2,25 +2,92 @@
 {% load static %}
 {% block title %}{{title}}{% endblock title %}
 {% block main %}
-    {% if form.errors %}
-        <div class="alert alert-danger" role="alert">
-            Hay errores en el formulario
-        </div>
-    {% endif %}
-    <div class="col-0 col-md-7">
-      <img  src={% static 'images/jobbie.png' %} class="img-fluid" alt="" />
+
+
+  {% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-primary message" role="alert">
+      {{message}}
+  </div>
+  {% endfor %}
+  {% endif %}
+  <div class="login-design">
+    <div class="waves">
+        <img  src={% static 'images/jobbie.png' %} style="max-width:600px" alt="" />
     </div>
-    <div class="col-11 col-md-5 d-flex justify-content-center">
+    <div class="login">
         <div class="login-data">
             <h1>Registrarse</h1>
-            <form method="POST" class="login-form mt-3">
+            <form method="POST" class="login-form mt-3" action="{% url 'save' %}">
                 {% csrf_token %}
-                {{form}}
-                
+                <div class="input-group">
+                  <span class="input-label">¿Qué eres?</option>
+                    <select name="tipo" id="format">
+                      <option value="1">Cliente</option>
+                      <option value="2">Prestador de Servicios</option>
+                    </select>
+                  </div>
+                  <div class="input-group">
+                    <label class="input-fill">
+                      <input type="text" name="name" id="name" required />
+                      <span class="input-label">Nombre</span>
+                      <i class="fa fa-user fa-2x"></i>
+        
+                    </label>
+                  </div>
+                  <div class="input-group">
+                    <label class="input-fill">
+                      <input type="text" name="lastName" id="lastName" required />
+                      <span class="input-label">Apellido</span>
+                      <i class="fa fa-user fa-2x"></i>
+        
+                    </label>
+                  </div>
+                  <div class="input-group">
+                    <label class="input-fill">
+                      <input type="email" name="correo" id="correo" required />
+                      <span class="input-label">Correo Electrónico</span>
+                      <i class="fas fa-envelope"></i>
+                    </label>
+                  </div>
+                  <div id="input-group">
+                    <label class="input-fill">
+                      <select size="1" name="departamento" id="departamento">
+                        <option value="0" selected disabled>Seleccionar departamento</option>
+                      </select>
+                    </label>
+                  </div>
+                  <div id="input-group" style="margin-top:15px">
+                    <label class="input-fill">
+                      <select name="municipio" size="1" disabled id="municipio">
+                        <option value="0" selected disabled>Seleccionar ciudad</option>
+                      </select>
+                    </label>
+                  </div>
+                  <div class="input-group">
+                    <label class="input-fill">
+                      <input type="password" name="password" id="password" required />
+                      <span class="input-label">Contraseña</span>
+                      <i class="fas fa-lock"></i>
+                    </label>
+                  </div>
+                  <div class="input-group">
+                    <label class="input-fill">
+                      <input type="password" name="rePassword" id="rePassword" required />
+                      <span class="input-label">Confirma contraseña</span>
+                      <i class="fas fa-lock"></i>
+                    </label>
+                  </div>
+                  <div>
+                    <p>¿Ya tienes una cuenta?</p>
+                    <a href="login.html">Inicia Sesión aquí</a>
+                  </div>
                 <input type="submit" value="Registrarse" class="btn-login w-100 mt-3"/>
             </form>
         </div>
     </div>
-
-
+</div>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{% static "js/jquery-3.6.0.min.js" %}" type="text/javascript"><\/script>')</script>
+<script src="{% static 'js/form_register.js' %}"></script>
 {% endblock main %}

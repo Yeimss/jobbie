@@ -8,4 +8,3 @@ admin.site.register(Neighborhoods)
 admin.site.register(Genders)
 admin.site.register(Workeds)
 admin.site.register(Clients)
-

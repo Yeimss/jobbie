@@ -57,53 +57,13 @@ class Registrarse(forms.Form):
     )
 
     #---------------------------------------------departamentos
-    departamentos=Departaments.objects.all().order_by('departament')
-    departamentos_list=[(None,'Departamento')]
-    for departamento in departamentos:
-        depa=(departamento.id,departamento.departament)
-        departamentos_list.append(depa)
-    departamento=forms.TypedChoiceField(
-        label = "",
-        widget=forms.Select(
-            attrs={
-                'class':'form-input-select',
-            },
-        ),
-        choices = departamentos_list
-    )
+    
 
     #---------------------------------------------Ciudades
     #depaId=departamento(0)
-    ciudades=Cities.objects.order_by('city')#.filter(departametId__exacts=depaId).
-    ciudades_list=[(None,'Ciudades')]
-    for ciudad in ciudades:
-        ciu=(ciudad.id,ciudad.city)
-        ciudades_list.append(ciu)
-    ciudad=forms.TypedChoiceField(
-        label = "",
-        widget=forms.Select(
-            attrs={
-                'class':'form-input-select',
-            },
-        ),
-        choices = ciudades_list,
-    )
-
+    
     #---------------------------------------------Barrios
-    barrios=Neighborhoods.objects.order_by('neighborhood')#.filter(departametId__exacts=depaId).
-    barrios_list=[(None,'Barrios')]
-    for barrio in barrios:
-        bar=(barrio.id, barrio.neighborhood)
-        barrios_list.append(bar)
-    barrio=forms.TypedChoiceField(
-        label = "",
-        widget=forms.Select(
-            attrs={
-                'class':'form-input-select',
-            },
-        ),
-        choices = barrios_list,
-    )
+    
 
     #---------------------------------------------contraseña
     password=forms.CharField(

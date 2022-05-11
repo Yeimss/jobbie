@@ -12,6 +12,7 @@ class Genders(models.Model):
 
 class Departaments(models.Model):
     departament=models.CharField(max_length=80, verbose_name="Departamento")
+    cod_dane=models.IntegerField(primary_key=True,verbose_name="Codigo_dane", null=False, default=None)
     class Meta:
         verbose_name='Departamento'
         verbose_name_plural='Departamentos'
@@ -22,6 +23,7 @@ class Departaments(models.Model):
 class Cities(models.Model):
     city=models.CharField(max_length=50, verbose_name="Ciudad")
     departametId=models.ForeignKey(Departaments, verbose_name="Departamento", on_delete=models.PROTECT)
+    cod_dane=models.IntegerField(primary_key=True,verbose_name="Codigo_dane", null=False, default=None)
     class Meta:
         verbose_name='Ciudad'
         verbose_name_plural='Ciudades'
@@ -48,7 +50,7 @@ class Clients(models.Model):
     gender=models.OneToOneField(Genders, on_delete=models.PROTECT, blank=True, null=True, default=None)
     photo=models.ImageField(default="null", upload_to='clientes', blank=True, null=True)	
     mobile=models.IntegerField(verbose_name="Celular", blank=True, null=True, default=None)
-    neighborhoodId=models.ForeignKey(Neighborhoods, verbose_name="Barrio", on_delete=models.PROTECT, blank=True, null=True, default=None)
+    ciudad=models.ForeignKey(Cities, verbose_name="Ciudad", on_delete=models.PROTECT, blank=True, null=True, default=None)
     class Meta:
         verbose_name='Cliente'
         verbose_name_plural='Clientes'
@@ -61,12 +63,12 @@ class Workeds(models.Model):
     name=models.CharField(max_length=100, verbose_name="Nombre")    
     lastName=models.CharField(max_length=100, verbose_name="Apellido")	
     mail=models.CharField(max_length=200, verbose_name="Correo")
-    bornDate=models.DateField(auto_now=False, auto_now_add=False, blank=True, verbose_name="Fecha de nacimiento")		
+    bornDate=models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True, default=None, verbose_name="Fecha de nacimiento")	
     password=models.CharField(max_length=200, verbose_name="Password")	
     gender=models.OneToOneField(Genders, on_delete=models.PROTECT, blank=True, null=True, default=None)
     photo=models.ImageField(default="null", upload_to='clientes', blank=True, null=True)		
     mobile=models.IntegerField(verbose_name="Celular", blank=True, null=True, default=None)
-    neighborhoodId=models.ForeignKey(Neighborhoods, verbose_name="Barrio", on_delete=models.PROTECT, blank=True, null=True, default=None)
+    ciudad=models.ForeignKey(Cities, verbose_name="Ciudad", on_delete=models.PROTECT, blank=True, null=True, default=None)
     descripcion_personal=models.TextField(verbose_name="Descripcion", blank=True, null=True, default=None)
     class Meta:
         verbose_name='Trabajador'
