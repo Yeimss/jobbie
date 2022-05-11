@@ -11,6 +11,8 @@
   </div>
   {% endfor %}
   {% endif %}
+
+  
   <div class="login-design">
     <div class="waves">
         <img  src={% static 'images/jobbie.png' %} style="max-width:600px" alt="" />
@@ -49,6 +51,7 @@
                       <span class="input-label">Correo Electrónico</span>
                       <i class="fas fa-envelope"></i>
                     </label>
+                    <span class="form-error" id="errorCorreo"></span>
                   </div>
                   <div id="input-group">
                     <label class="input-fill">
@@ -70,6 +73,8 @@
                       <span class="input-label">Contraseña</span>
                       <i class="fas fa-lock"></i>
                     </label>
+                    <span class="form-error" id="errorPassword"></span>
+
                   </div>
                   <div class="input-group">
                     <label class="input-fill">
@@ -77,12 +82,13 @@
                       <span class="input-label">Confirma contraseña</span>
                       <i class="fas fa-lock"></i>
                     </label>
+                    <span class="form-error" id="errorRePassword"></span>
                   </div>
-                  <div>
+                  <div class="input-group">
                     <p>¿Ya tienes una cuenta?</p>
-                    <a href="login.html">Inicia Sesión aquí</a>
+                      <a href={% url 'login' %}>Inicia Sesión aquí</a>
                   </div>
-                <input type="submit" value="Registrarse" class="btn-login w-100 mt-3"/>
+                <input type="submit" value="Registrarse" id="btnRegistro" class="btn-login w-100 mt-3"/>
             </form>
         </div>
     </div>
