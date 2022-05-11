@@ -119,8 +119,5 @@ class Login(forms.Form):
                 'class':'form-input',
             }
         ),
-        required=True,
-        validators=[
-            validators.MinLengthValidator(8, 'Por favor ingrese una contraseña de más de 8 caracteres'),
-        ]
+        required=True
     )

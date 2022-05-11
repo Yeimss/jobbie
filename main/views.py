@@ -1,5 +1,3 @@
-from email import message
-from urllib import response
 from django.shortcuts import render, redirect, HttpResponse
 from main.models import *
 from .forms import Registrarse, Login
@@ -12,12 +10,15 @@ def register_page(request):
         'title':'Registrarse',
     })
 
-def index(request):
+def index(request, id=None, name=None, lastName=None):
+    
     return render(request, 'index/index.html',{
-        'Titulo':'Inicio'
+        'Titulo':'Inicio',
     })
 
+
 def login_page(request):
+    mensaje=False
     if request.method=='POST':
         formulario=Login(request.POST)
         if formulario.is_valid():
@@ -28,16 +29,22 @@ def login_page(request):
             user=[]
             for usuario in usuarios:
                 user.append(usuario)
-            if user[0].password==contraseña:
-                messages.success(request, f"Bienvenido, {user[0].name}")
-                return redirect('index')
+            if len(user)!= 0:
+                if user[0].password==contraseña:
+                    messages.success(request, f"Bienvenido, {user[0].name}")
+                    return redirect('index')
+                else:
+                    mensaje="la contraseña es incorrecta"
+            else:
+                mensaje="el usuario no existe, por favor registrese"
+            
     else:
         formulario=Login()
-
 
     return render(request, 'users/login.html', {
         'titulo':'Inicio de sesión',
         'form':formulario,
+        'mensaje':mensaje
     })
 
 def save_client(request):

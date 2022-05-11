@@ -55,5 +55,35 @@ $(document).ready(function () {
 
         objInformeCarteraAsignada.LimpiarSelectAgencias();
     });
-    
+    $("#password").blur(function () {
+        if($("#password").val().length<8){
+            $('#errorPassword').text("La contraseña debe tener por lo menos 8 caracteres");
+            $("#btnRegistro").prop('disabled', true);
+        }
+        else{
+            $("#btnRegistro").prop('disabled', false);
+            $('#errorPassword').text("");
+        }
+    })
+    $("#rePassword").on('change', function () {
+        if($("#rePpassword").val()!=$("#password").val()){
+            $('#errorRePassword').text("Las contraseñas deben ser iguales");
+            $("#btnRegistro").prop('disabled', true);
+        }
+        else{
+            $('#errorRePassword').text("");
+            $("#btnRegistro").prop('disabled', false);
+        }
+    })
+    $("#correo").blur(function () {
+        if($("#correo").val().includes("@") && $("#correo").val().includes(".")){
+            $("#btnRegistro").prop('disabled', false);
+            $('#errorCorreo').text("");
+        }
+        else{
+            $('#errorCorreo').text("Por favor ingrese un correo valido");
+            $("#btnRegistro").prop('disabled', true);
+        }
+    })
+    correo
 });
