@@ -1,7 +1,7 @@
 from django import forms
 from django.core import validators
 
-from main.models import *
+from core.main.models import *
 
 class Registrarse(forms.Form):
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
-from main.models import *
-from .forms import Registrarse, Login
+from core.main.models import *
+from .forms import Login
 from django.contrib import messages
 # Create your views here.
 
@@ -25,7 +25,7 @@ def login_page(request):
             data=formulario.cleaned_data
             correo=data['correo']
             contraseña=data['password']
-            usuarios=Clients.objects.filter(mail__iexact=correo)
+            usuarios=Users.objects.filter(mail__iexact=correo)
             user=[]
             for usuario in usuarios:
                 user.append(usuario)
@@ -59,30 +59,18 @@ def save_client(request):
         tipo=int(request.POST['tipo'])
 
         if password==confirmar:
-            if tipo==1:
-                client = Clients(
-                    name=name,
-                    lastName=lastName,
-                    mail=correo,
-                    password=password,
-                    ciudad=Cities.objects.get(cod_dane=city),
+            client = Users(
+                name=name,
+                lastName=lastName,
+                mail=correo,
+                password=password,
+                ciudad=Cities.objects.get(cod_dane=city),
+                type=Types.objects.get(id=tipo)
+            )
+            client.save()
+            messages.success(request, f"Cliente registrado correctamente")
+            return redirect('login')
 
-                )
-                client.save()
-                messages.success(request, f"Cliente registrado correctamente")
-                return redirect('login')
-
-            elif tipo==2:
-                worked = Workeds(
-                    name=name,
-                    lastName=lastName,
-                    mail=correo,
-                    password=password,
-                    ciudad=Cities.objects.get(cod_dane=city),
-                )
-                worked.save()
-                messages.success(request, f"Treabajador registrado correctamente")
-                return redirect('login')
         else:
             messages.success(request, f"las contraseñas debens ser iguales")
             return redirect('registrarse')

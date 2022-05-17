@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser,BaseUserManager
+from django.forms import CharField
 
 # Create your models here.
 class Genders(models.Model):
@@ -41,39 +43,26 @@ class Neighborhoods(models.Model):
     def __str__(self):
         return self.neighborhood
 
-class Clients(models.Model):
-    name=models.CharField(max_length=100, verbose_name="Nombre")    
-    lastName=models.CharField(max_length=100, verbose_name="Apellido")	
-    mail=models.CharField(max_length=200, verbose_name="Correo")
+class Types(models.Model):
+    tipoUsuario=CharField(max_length=20)
+    class Meta:
+        verbose_name='Tipo'
+        verbose_name_plural='Tipos'
+
+    def __str__(self):
+        return self.tipoUsuario
+
+
+
+class Users(AbstractUser):
     bornDate=models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True, default=None, verbose_name="Fecha de nacimiento")	
     password=models.CharField(max_length=200, verbose_name="Password", blank=True, null=True, default=None)	
-    gender=models.OneToOneField(Genders, on_delete=models.PROTECT, blank=True, null=True, default=None)
+    gender=models.OneToOneField(Genders, verbose_name="Genero", on_delete=models.PROTECT, blank=True, null=True, default=None)
     photo=models.ImageField(default="null", upload_to='clientes', blank=True, null=True)	
     mobile=models.IntegerField(verbose_name="Celular", blank=True, null=True, default=None)
     ciudad=models.ForeignKey(Cities, verbose_name="Ciudad", on_delete=models.PROTECT, blank=True, null=True, default=None)
-    class Meta:
-        verbose_name='Cliente'
-        verbose_name_plural='Clientes'
-    
-    def __str__(self):
-        return self.name
-
-
-class Workeds(models.Model):	
-    name=models.CharField(max_length=100, verbose_name="Nombre")    
-    lastName=models.CharField(max_length=100, verbose_name="Apellido")	
-    mail=models.CharField(max_length=200, verbose_name="Correo")
-    bornDate=models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True, default=None, verbose_name="Fecha de nacimiento")	
-    password=models.CharField(max_length=200, verbose_name="Password")	
-    gender=models.OneToOneField(Genders, on_delete=models.PROTECT, blank=True, null=True, default=None)
-    photo=models.ImageField(default="null", upload_to='clientes', blank=True, null=True)		
-    mobile=models.IntegerField(verbose_name="Celular", blank=True, null=True, default=None)
-    ciudad=models.ForeignKey(Cities, verbose_name="Ciudad", on_delete=models.PROTECT, blank=True, null=True, default=None)
     descripcion_personal=models.TextField(verbose_name="Descripcion", blank=True, null=True, default=None)
-    class Meta:
-        verbose_name='Trabajador'
-        verbose_name_plural='Trabajadores'
+    type=models.ForeignKey(Types,verbose_name="Tipo", on_delete=models.PROTECT, null=True)
     
-    def __str__(self):
-        return self.name
-        
+
+
