@@ -1,11 +1,10 @@
 from django import forms
 from django.core import validators
-
 from core.main.models import *
 
 class Registrarse(forms.Form):
 
-    
+    """     
     #ciudades_list=Cities.objects.order_by('id')
 
     #---------------------------------------------nombre
@@ -94,7 +93,7 @@ class Registrarse(forms.Form):
         ]
     )
     
-
+    """
 class Login(forms.Form):
     correo=forms.CharField(
         label="",

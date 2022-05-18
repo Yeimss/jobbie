@@ -52,7 +52,7 @@ $(document).ready(function () {
             registrarse.CargarMunicipios(this.value);
         }
         $("#municipio").prop('disabled', false);
-
+        $('#municipio').empty();
         objInformeCarteraAsignada.LimpiarSelectAgencias();
     });
     $("#password").blur(function () {
@@ -62,19 +62,20 @@ $(document).ready(function () {
         }
         else{
             $("#btnRegistro").prop('disabled', false);
-            $('#errorPassword').text("");
+            $('#errorPassword').empty();
+
         }
-    })
-    $("#rePassword").on('change', function () {
-        if($("#rePpassword").val()!=$("#password").val()){
+    });
+    $("#rePassword").blur(function () {
+        if(($("#rePpassword").val()) != ($("#password").val())){
             $('#errorRePassword').text("Las contraseñas deben ser iguales");
             $("#btnRegistro").prop('disabled', true);
         }
         else{
-            $('#errorRePassword').text("");
+            $('#errorRePassword').empty();
             $("#btnRegistro").prop('disabled', false);
         }
-    })
+    });
     $("#correo").blur(function () {
         if($("#correo").val().includes("@") && $("#correo").val().includes(".")){
             $("#btnRegistro").prop('disabled', false);
@@ -84,6 +85,5 @@ $(document).ready(function () {
             $('#errorCorreo').text("Por favor ingrese un correo valido");
             $("#btnRegistro").prop('disabled', true);
         }
-    })
-    correo
+    });
 });

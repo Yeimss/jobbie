@@ -44,7 +44,7 @@ class Neighborhoods(models.Model):
         return self.neighborhood
 
 class Types(models.Model):
-    tipoUsuario=CharField(max_length=20)
+    tipoUsuario=models.CharField(max_length=20)
     class Meta:
         verbose_name='Tipo'
         verbose_name_plural='Tipos'
@@ -55,6 +55,7 @@ class Types(models.Model):
 
 
 class Users(AbstractUser):
+    email = models.EmailField('email address', unique=True)
     bornDate=models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True, default=None, verbose_name="Fecha de nacimiento")	
     password=models.CharField(max_length=200, verbose_name="Password", blank=True, null=True, default=None)	
     gender=models.OneToOneField(Genders, verbose_name="Genero", on_delete=models.PROTECT, blank=True, null=True, default=None)
@@ -63,6 +64,9 @@ class Users(AbstractUser):
     ciudad=models.ForeignKey(Cities, verbose_name="Ciudad", on_delete=models.PROTECT, blank=True, null=True, default=None)
     descripcion_personal=models.TextField(verbose_name="Descripcion", blank=True, null=True, default=None)
     type=models.ForeignKey(Types,verbose_name="Tipo", on_delete=models.PROTECT, null=True)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+    
     
 
 

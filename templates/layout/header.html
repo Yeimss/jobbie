@@ -1,10 +1,15 @@
 <header>
     <nav class="header__navbar">
-        <a class="navbar-brand">Jobbie</a>
+        <a class="navbar-brand" href={% url 'index' %}>Jobbie</a>
         <ul>
-            <li><a href={% url 'index' %}>Inicio</a></li>
-            <li><a href={% url 'login' %}>Iniciar Sesion</a></li>
-            <li><a href={% url 'register' %}>Registrarse</a></li>
+            {% if user.email %}
+                    <li><a href="#">{{request.user.first_name}}</a></li>
+                    <li><a href={% url 'logout' %}>cerrar sesion</a></li>
+                {% else %}
+                    <li><a href={% url 'index' %}>Inicio</a></li>
+                    <li><a href={% url 'login' %}>Iniciar Sesion</a></li>
+                    <li><a href={% url 'register' %}>Registrarse</a></li>
+            {% endif %}
         </ul>
     </nav>
 </header>

@@ -1,7 +1,10 @@
+import email
 from django.shortcuts import render, redirect, HttpResponse
 from core.main.models import *
 from .forms import Login
 from django.contrib import messages
+from django.contrib.auth import login, logout, authenticate
+
 # Create your views here.
 
 def register_page(request):
@@ -10,7 +13,7 @@ def register_page(request):
         'title':'Registrarse',
     })
 
-def index(request, id=None, name=None, lastName=None):
+def index(request):
     
     return render(request, 'index/index.html',{
         'Titulo':'Inicio',
@@ -18,25 +21,19 @@ def index(request, id=None, name=None, lastName=None):
 
 
 def login_page(request):
-    mensaje=False
     if request.method=='POST':
         formulario=Login(request.POST)
         if formulario.is_valid():
             data=formulario.cleaned_data
             correo=data['correo']
             contraseña=data['password']
-            usuarios=Users.objects.filter(mail__iexact=correo)
-            user=[]
-            for usuario in usuarios:
-                user.append(usuario)
-            if len(user)!= 0:
-                if user[0].password==contraseña:
-                    messages.success(request, f"Bienvenido, {user[0].name}")
-                    return redirect('index')
-                else:
-                    mensaje="la contraseña es incorrecta"
+            user=authenticate(request ,username=correo,password=contraseña)
+
+            if user is not None:
+                login(request, user)
+                return redirect('index')
             else:
-                mensaje="el usuario no existe, por favor registrese"
+                messages.warning(request,f'no te has identificado correctamente!!')
             
     else:
         formulario=Login()
@@ -44,7 +41,6 @@ def login_page(request):
     return render(request, 'users/login.html', {
         'titulo':'Inicio de sesión',
         'form':formulario,
-        'mensaje':mensaje
     })
 
 def save_client(request):
@@ -60,13 +56,13 @@ def save_client(request):
 
         if password==confirmar:
             client = Users(
-                name=name,
-                lastName=lastName,
-                mail=correo,
-                password=password,
+                first_name=name,
+                last_name=lastName,
+                email=correo,
                 ciudad=Cities.objects.get(cod_dane=city),
                 type=Types.objects.get(id=tipo)
             )
+            client.set_password(password)
             client.save()
             messages.success(request, f"Cliente registrado correctamente")
             return redirect('login')
@@ -76,7 +72,10 @@ def save_client(request):
             return redirect('registrarse')
     
 
-        
+def logout_user(request):
+    logout(request)
+    return redirect('login')
+
         
         
 
