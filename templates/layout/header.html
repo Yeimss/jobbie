@@ -3,7 +3,7 @@
         <a class="navbar-brand" href={% url 'index' %}>Jobbie</a>
         <ul>
             {% if user.email %}
-                    <li><a href="#">{{request.user.first_name}}</a></li>
+                    <li><a href={% url 'perfil' tipo=request.user.type %}>{{request.user.first_name}}</a></li>
                     <li><a href={% url 'logout' %}>cerrar sesion</a></li>
                 {% else %}
                     <li><a href={% url 'index' %}>Inicio</a></li>

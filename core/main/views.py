@@ -1,5 +1,4 @@
-import email
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect
 from core.main.models import *
 from .forms import Login
 from django.contrib import messages
@@ -33,7 +32,7 @@ def login_page(request):
                 login(request, user)
                 return redirect('index')
             else:
-                messages.warning(request,f'no te has identificado correctamente!!')
+                messages.warning(request, 'no te has identificado correctamente!!')
             
     else:
         formulario=Login()
@@ -66,15 +65,25 @@ def save_client(request):
             client.save()
             messages.success(request, f"Cliente registrado correctamente")
             return redirect('login')
-
+    
         else:
             messages.success(request, f"las contraseñas debens ser iguales")
-            return redirect('registrarse')
     
 
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+def pefil(request, tipo):
+    if(tipo=='Oficial'):
+        return render(request, 'users/perfilWorked.html',{
+            'title':'Perfil',
+        })
+    else:
+        return render(request, 'users/perfilClient.html',{
+            'title':'Perfil',
+        })
+
 
         
         

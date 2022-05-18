@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_static_jquery',
     'core.main',
+    #'core.perfil',
 ]
 
 MIDDLEWARE = [
@@ -122,7 +123,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR, "static")
 ]
-#STATIC_ROOT = ''
+STATIC_ROOT = ''
 
 
 # Default primary key field type

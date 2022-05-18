@@ -1,0 +1,18 @@
+{% load static %}
+<div class="hero">
+    <nav>
+        <ul>
+            <li><a href={% url 'index' %}>Inicio</a></li>
+            <li><a href="#about">Presentación</a></li>
+            <li><a href="#service">Servicios</a></li>
+            <li><a href="#">Trabajos Hechos</a></li>
+            
+        </ul>
+        <a href="#" class="btn">Contactar</a>
+    </nav>
+
+    <div class="content">    
+        <h4>Hola, mi nombre es </h4>
+        <h1>{{request.user.first_name}} <span>{{request.user.last_name}}</span></h1>
+    </div>
+</div>
