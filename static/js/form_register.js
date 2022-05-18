@@ -67,7 +67,7 @@ $(document).ready(function () {
         }
     });
     $("#rePassword").blur(function () {
-        if(($("#rePpassword").val()) != ($("#password").val())){
+        if(($("#rePassword").val()) != ($("#password").val())){
             $('#errorRePassword').text("Las contraseñas deben ser iguales");
             $("#btnRegistro").prop('disabled', true);
         }
