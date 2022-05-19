@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_static_jquery',
     'core.main',
-    #'core.perfil',
+    'core.perfiles',
 ]
 
 MIDDLEWARE = [
