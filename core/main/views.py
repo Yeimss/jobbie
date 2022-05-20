@@ -1,24 +1,42 @@
 from django.shortcuts import render, redirect
 from core.main.models import *
-from .forms import Login
+from .forms import Login, postRegistro
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 
 # Create your views here.
 
+
+##-----------------pagina de registro
 def register_page(request):
 
     return render(request, 'users/register.html',{
         'title':'Registrarse',
     })
 
-def index(request):
-    
-    return render(request, 'index/index.html',{
-        'Titulo':'Inicio',
+
+
+
+##-------------------pagina para completar la info del trabajador
+def postRegister(request):
+    if request.method=='POST':
+        Worked = Users.objects.get(id=request.user.id)
+        formulario=postRegistro(request.POST, request.FILES, instance=Worked)
+        if formulario.is_valid():
+            formulario.save()
+            
+            messages.warning(request, 'datos actualizados')
+            return redirect('index')
+    else:
+        formulario=postRegistro()
+
+    return render(request, 'users/postRegister.html', {
+        'titulo':'Registro',
+        'form':formulario,
     })
 
 
+###------------------login page
 def login_page(request):
     if request.method=='POST':
         formulario=Login(request.POST)
@@ -42,6 +60,8 @@ def login_page(request):
         'form':formulario,
     })
 
+
+##---------------metodo para registrar un cliente
 def save_client(request):
     if request.method=='POST':
         name=request.POST['name']
@@ -64,11 +84,21 @@ def save_client(request):
             client.set_password(password)
             client.save()
             messages.success(request, f"Cliente registrado correctamente")
-            return redirect('login')
+
+            user=authenticate(request ,username=correo,password=password)
+            login(request, user)
+
+            if tipo==2:
+                return redirect('postRegister')
+            else:
+                return redirect('index')
+                
     
         else:
             messages.success(request, f"las contraseñas debens ser iguales")
     
+
+##-------------------cerrar sesion
 
 def logout_user(request):
     logout(request)
@@ -80,3 +110,25 @@ def logout_user(request):
         
 
     
+##handle_uploaded
+def handle_uploaded_file(f):
+    with open('some/file/name.txt', 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+
+""" especialidad=data['especialidad']
+
+            for esp in especialidad:
+                skill=WorkedSkills(
+                    especialidad=Skills.objects.get(id=int(esp)),
+                    trabajador= Users.objects.get(id=request.user.id)
+                )
+                skill.save() 
+
+Worked.photo=photo
+Worked.get_image
+Worked.bornDate=bornDate
+Worked.mobile=mobile
+Worked.descripcion_personal=descripcion
+Worked.gender=Genders.objects.get(id=gender)
+Worked.save() """

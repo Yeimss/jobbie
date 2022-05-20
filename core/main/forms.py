@@ -1,99 +1,102 @@
 from django import forms
 from django.core import validators
 from core.main.models import *
+from django.forms import ModelForm
 
-class Registrarse(forms.Form):
+generos=Genders.objects.all()
+g=[(0, 'seleccione un genero')]
+for genero in generos:
+    a=(genero.id,genero.gender)
+    g.append(a)
 
-    """     
-    #ciudades_list=Cities.objects.order_by('id')
+skills=Skills.objects.all()
+especialidad=[]
+for skill in skills:
+    a=(skill.id,skill.especialidad)
+    especialidad.append(a)
 
-    #---------------------------------------------nombre
-    name=forms.CharField(
-        label='',
-        max_length=100,
-        required=True,
-        widget=forms.TextInput(
-            attrs={
-                'placeholder':'Nombre',
-                'class':'form-input'
-            }
-        ),
-        validators=[
-            validators.MaxLengthValidator(100, 'tu nombre es muy largo'),
-            validators.RegexValidator('^[A-Za-z0-9ñáéóíú ]*$', 'El nombre no puede tener caracterese especiales', 'invalid_name')
-        ]
-    )
-    #---------------------------------------------apellido
-    lastName=forms.CharField(
-        label='',
-        max_length=100,
-        required=True,
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Apellido',
-                'class':'form-input'
-            }
-        ),
-        validators=[
-            validators.MaxLengthValidator(100, 'tu apellido es muy largo'),
-            validators.RegexValidator('^[A-Za-z0-9ñáéóíú ]*$', 'El apellido no puede tener caracterese especiales', 'invalid_lastName')
-        ]
-    )
-    #----------------------------------------------correo
-    correo=forms.CharField(
-        label="",
-        widget=forms.EmailInput(
+
+class postRegistro(ModelForm):
+    class Meta:
+        model=Users
+        fields=('gender', 'photo', 'bornDate', 'mobile', 'descripcion_personal')
+        widgets = {
+            'bornDate': forms.DateInput(attrs={
+                'class': 'form-input',
+                'type':'date'
+                }),
+            'mobile':forms.NumberInput(
             attrs={
                 'class':'form-input',
-                'placeholder':'example@example.com'
-            }
-        ),
-        required=True,
-        validators=[
-            validators.MaxLengthValidator(200, 'El correo es demasiado largo'),
-            validators.EmailValidator('Por favor ingrese un correo valido')
-        ]
-    )
-
-    #---------------------------------------------departamentos
-    
-
-    #---------------------------------------------Ciudades
-    #depaId=departamento(0)
-    
-    #---------------------------------------------Barrios
-    
-
-    #---------------------------------------------contraseña
-    password=forms.CharField(
-        label="",
-        widget=forms.PasswordInput(
+                'placeholder':'Numero de celular'
+            }),
+            'descripcion_personal':forms.Textarea(
             attrs={
-                'placeholder': 'Contraseña',
-                'class':'form-input',
+                'placeholder':'Descripcion personal',
+                'class':'text-center'
             }
         ),
-        required=True,
-        validators=[
-            validators.MinLengthValidator(8, 'Por favor ingrese una contraseña de más de 8 caracteres'),
-        ]
-    )
+        }
+        input_formats={'bornDate':["%Y-%m-%d"]}
 
-    rePassword=forms.CharField(
-        label="",
-        widget=forms.PasswordInput(
-            attrs={
-                'placeholder': 'Confirmar contraseña',
-                'class':'form-input',
-            }
-        ),
-        validators=[
-            validators.MinLengthValidator(8, 'Por favor ingrese una contraseña de más de 8 caracteres'),
-
-        ]
-    )
-    
     """
+    photo = forms.ImageField(
+        label='Foto de perfil',
+        required=False, 
+        error_messages = {'invalid':("solamente se aceptan imagenes")}, 
+        widget=forms.FileInput(
+            attrs={
+                'class':'form-input-img',
+            }
+        ))
+        
+    bornDate = forms.DateField(
+        label='Fecha de nacimiento', 
+        label_suffix=" : ",
+        required=True, 
+        disabled=False, 
+        widget=forms.DateInput(
+            attrs={
+                'class': 'form-input',
+                'type':'date'
+                }),
+            error_messages={'required': "This field is required."})
+
+    mobile=forms.CharField(
+        label="",
+        required=False,
+        widget=forms.NumberInput(
+            attrs={
+                'class':'form-input',
+                'placeholder':'Numero de celular'
+            }
+        ),
+        validators=[
+            validators.MaxLengthValidator(10, 'El nuemro telefonico debe tener 10 caracteres'),
+            validators.MinLengthValidator(10, 'El nuemro telefonico debe tener 10 caracteres'),
+        ]
+    )
+    descripcion=forms.CharField(
+        label="Descripcion personal",
+        widget=forms.Textarea(
+            attrs={
+                'placeholder':'Descripcion personal'
+            }
+        ),
+        required=True
+    )
+
+    especialidad=forms.MultipleChoiceField(
+        label="Especialidades",
+        required=False,
+        widget=forms.CheckboxSelectMultiple(
+            attrs={
+                'class':''
+            }
+        ),
+        choices=especialidad,
+    ) """
+
 class Login(forms.Form):
     correo=forms.CharField(
         label="",

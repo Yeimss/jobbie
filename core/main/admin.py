@@ -8,4 +8,7 @@ admin.site.register(Genders)
 admin.site.register(Departaments)
 admin.site.register(Cities)
 admin.site.register(Neighborhoods)
+admin.site.register(Skills)
+admin.site.register(WorkedSkills)
+
 

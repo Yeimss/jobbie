@@ -1,4 +1,5 @@
 from django.db import models
+from jobbie.settings import MEDIA_URL, STATIC_URL
 from django.contrib.auth.models import AbstractUser,BaseUserManager
 
 # Create your models here.
@@ -17,9 +18,11 @@ class Departaments(models.Model):
     class Meta:
         verbose_name='Departamento'
         verbose_name_plural='Departamentos'
+        db_table="Departamentos"
     
     def __str__(self):
         return self.departament
+
 
 class Cities(models.Model):
     city=models.CharField(max_length=50, verbose_name="Ciudad")
@@ -28,9 +31,11 @@ class Cities(models.Model):
     class Meta:
         verbose_name='Ciudad'
         verbose_name_plural='Ciudades'
+        db_table="Ciudades"
     
     def __str__(self):
         return self.city
+    
 
 class Neighborhoods(models.Model):
     neighborhood=models.CharField(max_length=80, verbose_name="Barrio")
@@ -38,9 +43,11 @@ class Neighborhoods(models.Model):
     class Meta:
         verbose_name='Barrio'
         verbose_name_plural='Barrios'
+        db_table="Barrios"
     
     def __str__(self):
         return self.neighborhood
+
 
 class Types(models.Model):
     tipoUsuario=models.CharField(max_length=20)
@@ -57,15 +64,37 @@ class Users(AbstractUser):
     email = models.EmailField('email address', unique=True)
     bornDate=models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True, default=None, verbose_name="Fecha de nacimiento")	
     password=models.CharField(max_length=200, verbose_name="Password", blank=True, null=True, default=None)	
-    gender=models.OneToOneField(Genders, verbose_name="Genero", on_delete=models.PROTECT, blank=True, null=True, default=None)
-    photo=models.ImageField(default="null", upload_to='clientes', blank=True, null=True)	
+    gender=models.ForeignKey(Genders, verbose_name="Genero", on_delete=models.PROTECT, blank=True, null=True, default=None)
+    photo=models.ImageField(default="media/user/user.png", upload_to='user/%m/%d/', blank=True, null=True)	
     mobile=models.IntegerField(verbose_name="Celular", blank=True, null=True, default=None)
     ciudad=models.ForeignKey(Cities, verbose_name="Ciudad", on_delete=models.PROTECT, blank=True, null=True, default=None)
     descripcion_personal=models.TextField(verbose_name="Descripcion", blank=True, null=True, default=None)
     type=models.ForeignKey(Types,verbose_name="Tipo", on_delete=models.PROTECT, null=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
-    
-    
+    def get_image(self):
+        if self.photo:
+            return '{}{}'.format(MEDIA_URL,self.photo)
+        return '{}{}'.format(STATIC_URL,'images/user.png')
+        
+    def __str__(self):
+        return self.first_name
+
+class Skills(models.Model):
+    especialidad=models.CharField(max_length=50, verbose_name="Especialidad")
+    class Meta:
+        verbose_name='Especialidad'
+        verbose_name_plural='Especialidades'
+    def __str__(self):
+        return self.especialidad
 
 
+class WorkedSkills(models.Model):
+    especialidad=models.ForeignKey(Skills,on_delete=models.PROTECT, verbose_name="Especialidad",  blank=True, default=None)
+    trabajador=models.ForeignKey(Users,on_delete=models.PROTECT, verbose_name="Trabajador", blank=True, default=None)
+    class Meta:
+        verbose_name='Especialidad trabajador'
+        verbose_name_plural='Especialidades trabajadores'
+
+    def __str__(self):
+        return f"{self.trabajador} / {self.especialidad} "

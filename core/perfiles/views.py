@@ -10,3 +10,9 @@ def pefil(request, tipo):
         return render(request, 'users/perfilClient.html',{
             'title':'Perfil',
         })
+
+def index(request):
+    
+    return render(request, 'index/index.html',{
+        'Titulo':'Inicio',
+    })
