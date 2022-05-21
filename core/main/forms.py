@@ -1,3 +1,4 @@
+from urllib import request
 from django import forms
 from django.core import validators
 from core.main.models import *
@@ -16,77 +17,15 @@ for skill in skills:
     especialidad.append(a)
 
 
-class postRegistro(ModelForm):
+class SkillsWorked(ModelForm):
     class Meta:
-        model=Users
-        fields=('gender', 'photo', 'bornDate', 'mobile', 'descripcion_personal')
-        widgets = {
-            'bornDate': forms.DateInput(attrs={
-                'class': 'form-input',
-                'type':'date'
-                }),
-            'mobile':forms.NumberInput(
-            attrs={
-                'class':'form-input',
-                'placeholder':'Numero de celular'
-            }),
-            'descripcion_personal':forms.Textarea(
-            attrs={
-                'placeholder':'Descripcion personal',
-                'class':'text-center'
-            }
-        ),
-        }
-        input_formats={'bornDate':["%Y-%m-%d"]}
-
-    """
-    photo = forms.ImageField(
-        label='Foto de perfil',
-        required=False, 
-        error_messages = {'invalid':("solamente se aceptan imagenes")}, 
-        widget=forms.FileInput(
-            attrs={
-                'class':'form-input-img',
-            }
-        ))
+        model=WorkedSkills
+        fields=('especialidad',)
         
-    bornDate = forms.DateField(
-        label='Fecha de nacimiento', 
-        label_suffix=" : ",
-        required=True, 
-        disabled=False, 
-        widget=forms.DateInput(
-            attrs={
-                'class': 'form-input',
-                'type':'date'
-                }),
-            error_messages={'required': "This field is required."})
-
-    mobile=forms.CharField(
-        label="",
-        required=False,
-        widget=forms.NumberInput(
-            attrs={
-                'class':'form-input',
-                'placeholder':'Numero de celular'
-            }
-        ),
-        validators=[
-            validators.MaxLengthValidator(10, 'El nuemro telefonico debe tener 10 caracteres'),
-            validators.MinLengthValidator(10, 'El nuemro telefonico debe tener 10 caracteres'),
-        ]
-    )
-    descripcion=forms.CharField(
-        label="Descripcion personal",
-        widget=forms.Textarea(
-            attrs={
-                'placeholder':'Descripcion personal'
-            }
-        ),
-        required=True
-    )
-
-    especialidad=forms.MultipleChoiceField(
+        widgets = {
+            'especialidad':forms.CheckboxSelectMultiple()
+        } 
+    """ especialidad=forms.MultipleChoiceField(
         label="Especialidades",
         required=False,
         widget=forms.CheckboxSelectMultiple(
@@ -95,7 +34,42 @@ class postRegistro(ModelForm):
             }
         ),
         choices=especialidad,
-    ) """
+    )
+ """
+class postRegistro(ModelForm):
+    class Meta:
+        model=Users
+        fields=('first_name', 'last_name', 'email','gender', 'photo', 'bornDate', 'mobile', 'descripcion_personal')
+        widgets = {
+            'first_name':forms.TextInput(attrs={
+                'class':'form-input',
+                'placeholder':'Nombre'           
+            }),
+            'last_name':forms.TextInput(attrs={
+                'class':'form-input',
+                'placeholder':'Apellido'
+            }),
+            'email':forms.EmailInput(attrs={
+                'class':'form-input',
+                'placeholder':'Email'
+            }),
+            'bornDate': forms.DateInput(attrs={
+                'class': 'form-input',
+                'type':'date'
+                }),
+            'mobile':forms.NumberInput(attrs={
+                'class':'form-input',
+                'placeholder':'Numero de celular'
+            }),
+            'descripcion_personal':forms.Textarea(attrs={
+                'placeholder':'Descripcion personal',
+                'class':'text-center form-input'
+            }),
+            'photo':forms.FileInput(attrs={
+                'class':'form-input-img'
+            })
+        }
+        input_formats={'bornDate':["%Y-%m-%d"]}
 
 class Login(forms.Form):
     correo=forms.CharField(

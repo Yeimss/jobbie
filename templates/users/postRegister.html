@@ -17,10 +17,31 @@
     {% endfor %}
 {% endif %}
 <div class="container">
+    {%include 'layout/perfil/card.html'%}
+
     <div class="row">
-        <form class="login-form col-12 col-md-6" method='POST' enctype="multipart/form-data">
+        <form class="login-form col-12 col-md-8" method='POST' enctype="multipart/form-data">
             {% csrf_token %}
-            {{form.as_p}}
+            <div class="row">
+                {% for field in form %}
+                    {% if field != form.descripcion_personal %}
+                        <div class="col-11 col-md-6 mt-3">
+                            <div class="text-center">{{field.label}}</div>
+                            {{field}}
+                        </div>
+                    {% endif %}
+                {% endfor %} 
+                {%if user.type_id == 2%} 
+                    <div class="col-11 col-md-6 mt-3">
+                        <div class="text-center">{{form.descripcion_personal.label}}</div>
+                        {{form.descripcion_personal}}
+                    </div>
+                    <div class="col-11 col-md-6 mt-3">
+                        {{form2}}
+                    </div>
+                {% endif %}      
+            </div>
+            
             <input type="submit" value="Actualizar Datos" class="btn-login w-100 mt-3"/>
         </form>
     </div>

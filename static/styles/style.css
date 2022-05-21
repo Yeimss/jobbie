@@ -159,7 +159,7 @@ select{
   border: 0!important;
   background: #6288E3;
   background-image: none;
-  width: 60%;
+  width: 100%
 
 }
 
@@ -170,7 +170,7 @@ select::-ms-expand{
 .select{
   position: relative;
   display:flex;
-  width: 20em;
+  width: 100%;
   height: 3em;
   line-height: 3;
   background: #6288E3;
@@ -202,7 +202,7 @@ select{
   height: 40px;
   border: none;
   border-bottom: #6288E3 3px solid;
-  text-align: center;
+  text-align: left;
   margin-bottom:10px;
   outline: none;
 }
@@ -217,7 +217,7 @@ select{
   overflow: hidden;
   padding: 10px;
   position: relative;
-  text-align: center;
+  text-align: left;
   width: 100%;
 
 }
@@ -231,6 +231,6 @@ p select{
 }
 p textarea{
   width: 100%;
-  height: 120px;
+  height: 60px;
 
 }

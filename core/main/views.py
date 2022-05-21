@@ -110,18 +110,12 @@ def logout_user(request):
         
 
     
-##handle_uploaded
-def handle_uploaded_file(f):
-    with open('some/file/name.txt', 'wb+') as destination:
-        for chunk in f.chunks():
-            destination.write(chunk)
 
 """ especialidad=data['especialidad']
 
             for esp in especialidad:
                 skill=WorkedSkills(
                     especialidad=Skills.objects.get(id=int(esp)),
-                    trabajador= Users.objects.get(id=request.user.id)
                 )
                 skill.save() 
 
