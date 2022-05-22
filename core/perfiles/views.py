@@ -45,26 +45,26 @@ class updateUser(UpdateView):
         self.object=self.get_object
         id_persona=kwargs['pk']
         persona=self.model.objects.get(id=id_persona)
-        form=self.form_class(request.POST,request.FILES, instance=persona)
-        form2=self.form_esp(request.POST)
-        if(form.is_valid() and form2.is_valid()):
-            """  data=form2.cleaned_data
-            especialidad=data['especialidad']
-            for esp in especialidad:
-                skill=WorkedSkills(
-                    trabajador=(Users.objects.get(id=id_persona)),
-                    especialidad=Skills.objects.get(especialidad=esp),
-                )
-                skill.save(commit=False) 
+        if request.method=='POST':
+            form=self.form_class(request.POST,request.FILES, instance=persona)
+            form2=self.form_esp(request.POST)
+            if(form.is_valid()):
+                form.save() 
+                messages.warning(request, 'datos actualizados')
+                if form2.is_valid():
+                    data=form2.cleaned_data
+                    especiality=data['especialidad']
 
-            """
-            """ habilidades=form2.save(commit=False)
-            habilidades.trabajador(persona)
-            habilidades.save()"""
-            form.save() 
-            messages.warning(request, 'datos actualizados')
-            return redirect('index')
+                for esp in especiality:
+                    skill=WorkedSkills(
+                        trabajador=persona,
+                        especialidad=Skills.objects.get(id=esp),
+                    )
+                    skill.save() 
+
+                return redirect('index')
 
         else:
-            return HttpResponseRedirect(self.get_success_url())
+            messages.warning(request, 'Hay algun error en el formulario')
+            return redirect('perfilUpdate')
 
