@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, DetailView
 from core.main.forms import SkillsWorked, postRegistro
 from core.main.models import Skills, Users, WorkedSkills
 from django.contrib import messages
@@ -22,7 +22,7 @@ def index(request):
         'Titulo':'Inicio',
     })
 
-class updateUser(UpdateView):
+class updateUser(UpdateView, DetailView):
     model=Users
     model_skills=WorkedSkills
     template_name='users/postRegister.html'
@@ -33,12 +33,14 @@ class updateUser(UpdateView):
         context = super().get_context_data(**kwargs)
         pk=self.kwargs.get('pk',0)
         persona=self.model.objects.get(id=pk)
-        especialidad=self.model_skills.objects.filter(trabajador=pk)
         if 'form' not in context:
             context['form']=self.form_class(instance=persona)
         if 'form2' not in context:
             context['form2']=self.form_esp()
+        if 'especialidad' not in context:
+            context['especialidad']=self.model_skills.objects.filter(trabajador=pk)
         context['id']=pk
+        
         return context
 
     def post(self,request, *args, **kwargs):
@@ -56,11 +58,13 @@ class updateUser(UpdateView):
                     especiality=data['especialidad']
 
                 for esp in especiality:
-                    skill=WorkedSkills(
-                        trabajador=persona,
-                        especialidad=Skills.objects.get(id=esp),
-                    )
-                    skill.save() 
+                    existe=WorkedSkills.objects.filter(trabajador=persona, especialidad=int(esp)).exists()
+                    if not existe:
+                        skill=WorkedSkills(
+                            trabajador=persona,
+                            especialidad=Skills.objects.get(id=int(esp))
+                        )
+                        skill.save()
 
                 return redirect('index')
 

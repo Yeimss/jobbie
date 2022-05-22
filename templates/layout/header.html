@@ -3,6 +3,9 @@
         <a class="navbar-brand" href={% url 'index' %}>Jobbie</a>
         <ul>
             {% if user.email %}
+                    {% if user.type_id == 2 %}
+                    <li><a href="#">Galeria de trabajos</a></li>
+                    {% endif %}
                     <li><a href={% url 'perfilUpdate' pk=request.user.id %}>{{request.user.first_name}}</a></li>
                     <li><a href={% url 'logout' %}>cerrar sesion</a></li>
                 {% else %}

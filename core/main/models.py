@@ -90,11 +90,11 @@ class Skills(models.Model):
 
 
 class WorkedSkills(models.Model):
-    especialidad=models.ManyToManyField(Skills)
-    trabajador=models.ManyToManyField(Users)
+    especialidad=models.ForeignKey(Skills,verbose_name="Especialidad", on_delete=models.PROTECT, blank=True, null=True, default=None)
+    trabajador=models.ForeignKey(Users,verbose_name="Trabajador", on_delete=models.PROTECT, blank=True, null=True, default=None )
     class Meta:
         verbose_name='Especialidad trabajador'
         verbose_name_plural='Especialidades trabajadores'
 
     def __str__(self):
-        return self.trabajador
+        return str(self.trabajador)

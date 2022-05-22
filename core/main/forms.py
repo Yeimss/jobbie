@@ -17,15 +17,15 @@ for skill in skills:
     especialidad.append(a)
 
 
-class SkillsWorked(ModelForm):
-    class Meta:
+class SkillsWorked(forms.Form):
+    """ class Meta:
         model=WorkedSkills
         fields=('especialidad',)
         
         widgets = {
             'especialidad':forms.CheckboxSelectMultiple()
-        } 
-    """ especialidad=forms.MultipleChoiceField(
+        }  """
+    especialidad=forms.MultipleChoiceField(
         label="Especialidades",
         required=False,
         widget=forms.CheckboxSelectMultiple(
@@ -35,7 +35,7 @@ class SkillsWorked(ModelForm):
         ),
         choices=especialidad,
     )
- """
+
 class postRegistro(ModelForm):
     class Meta:
         model=Users

@@ -234,3 +234,12 @@ p textarea{
   height: 60px;
 
 }
+.titulo__perfil{
+  color: #6288E3;
+  font-size: 20px;
+}
+.li__especialidades{
+  font-size: 18px;
+  list-style: none;
+  margin-left:-16px;
+}
