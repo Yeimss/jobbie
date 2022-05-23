@@ -163,9 +163,6 @@ select{
 
 }
 
-select::-ms-expand{
-  display: none;
-}
 
 .select{
   position: relative;

@@ -1,4 +1,3 @@
-from urllib import request
 from django import forms
 from django.core import validators
 from core.main.models import *
@@ -70,6 +69,7 @@ class postRegistro(ModelForm):
             })
         }
         input_formats={'bornDate':["%Y-%m-%d"]}
+        validators
 
 class Login(forms.Form):
     correo=forms.CharField(

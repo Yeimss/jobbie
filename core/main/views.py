@@ -83,15 +83,15 @@ def save_client(request):
             )
             client.set_password(password)
             client.save()
-            messages.success(request, f"Cliente registrado correctamente")
 
             user=authenticate(request ,username=correo,password=password)
             login(request, user)
 
             if tipo==2:
-                return redirect('postRegister')
+                messages.success(request, f"Por favor complete su perfil")
+                return redirect('perfilUpdate', pk=request.user.id)
             else:
-                return redirect('index')
+                return redirect('perfilUpdate',  pk=request.user.id)
                 
     
         else:
@@ -108,8 +108,6 @@ def logout_user(request):
 
         
         
-
-    
 
 """ especialidad=data['especialidad']
 

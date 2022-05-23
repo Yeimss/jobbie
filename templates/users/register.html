@@ -26,7 +26,7 @@
             <form method="POST" class="login-form mt-3" action="{% url 'save' %}">
                 {% csrf_token %}
                 <div class="input-group">
-                  <span class="input-label">¿Qué eres?</option>
+                  <span class="input-label">¿Qué eres?</span>
                     <select name="tipo" id="format">
                       <option value="1">Cliente</option>
                       <option value="2">Prestador de Servicios</option>
@@ -56,14 +56,14 @@
                     </label>
                     <span class="form-error" id="errorCorreo"></span>
                   </div>
-                  <div id="input-group">
+                  <div class="input-group">
                     <label class="input-fill">
                       <select size="1" name="departamento" id="departamento">
                         <option value="0" selected disabled>Seleccionar departamento</option>
                       </select>
                     </label>
                   </div>
-                  <div id="input-group" style="margin-top:15px">
+                  <div class="input-group" style="margin-top:15px">
                     <label class="input-fill">
                       <select name="municipio" size="1" disabled id="municipio">
                         <option value="0" selected disabled>Seleccionar ciudad</option>
