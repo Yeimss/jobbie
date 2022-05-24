@@ -103,24 +103,3 @@ def save_client(request):
 def logout_user(request):
     logout(request)
     return redirect('login')
-
-
-
-        
-        
-
-""" especialidad=data['especialidad']
-
-            for esp in especialidad:
-                skill=WorkedSkills(
-                    especialidad=Skills.objects.get(id=int(esp)),
-                )
-                skill.save() 
-
-Worked.photo=photo
-Worked.get_image
-Worked.bornDate=bornDate
-Worked.mobile=mobile
-Worked.descripcion_personal=descripcion
-Worked.gender=Genders.objects.get(id=gender)
-Worked.save() """

@@ -1,6 +1,5 @@
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.views.generic import UpdateView, DetailView, CreateView
+from django.views.generic import UpdateView, DetailView, CreateView,DeleteView
 from core.main.forms import SkillsWorked, postRegistro
 from core.main.models import Skills, Users, WorkedSkills
 from .models import *
@@ -112,11 +111,27 @@ class evidenciasTrabajadores(UpdateView, DetailView):
                 )
                 evidence.save() 
                 
-                messages.warning(request, 'datos actualizados')
+                messages.warning(request, 'Evidencia agregada correctamente')
 
-                return redirect('perfilUpdate', pk=request.user.id)
+                return redirect('galeriaPropia', pk=request.user.id)
 
         else:
             messages.warning(request, 'Hay algun error en el formulario')
-            return redirect('perfilUpdate', pk=request.user.id)
+            return redirect('galeriaPropia', pk=request.user.id)
 
+def borrarEvidencia(request, id):
+    evidencia=Evidencias.objects.get(pk=id)
+    evidencia.delete()
+
+    messages.warning(request, 'Evidencia eliminada con exito')
+    return redirect('galeriaPropia', pk=request.user.id)
+
+def editarEvidencia(request, id):
+    evidencia=Evidencias.objects.get(pk=id)
+    formulario=evidencias(request.POST, request.FILES, instance=evidencia)
+    if request.method=='POST':
+        if formulario.is_valid():
+            formulario.save()
+
+    messages.warning(request, 'Evidencia actualizada con exito')
+    return redirect('galeriaPropia', pk=request.user.id)

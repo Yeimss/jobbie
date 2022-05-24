@@ -34,29 +34,26 @@
                   </div>
                   <div class="input-group">
                     <label class="input-fill">
-                      <input type="text" name="name" id="name" required />
-                      <span class="input-label">Nombre</span>
+                      <input type="text" placeholder="Nombre" name="name" id="name" required />
+                      <i class="fa fa-user fa-2x"></i>
+                    </label>
+                  </div>
+                  <div class="input-group">
+                    <label class="input-fill">
+                      <input type="text" placeholder="Apellido" name="lastName" id="lastName" required />
                       <i class="fa fa-user fa-2x"></i>
         
                     </label>
                   </div>
                   <div class="input-group">
                     <label class="input-fill">
-                      <input type="text" name="lastName" id="lastName" required />
-                      <span class="input-label">Apellido</span>
-                      <i class="fa fa-user fa-2x"></i>
-        
-                    </label>
-                  </div>
-                  <div class="input-group">
-                    <label class="input-fill">
-                      <input type="email" name="correo" id="correo" required />
-                      <span class="input-label">Correo Electrónico</span>
+                      <input type="email" placeholder="Email" name="correo" id="correo" required />
                       <i class="fas fa-envelope"></i>
                     </label>
                     <span class="form-error" id="errorCorreo"></span>
                   </div>
                   <div class="input-group">
+                    <span class="input-label">Departamento</span>
                     <label class="input-fill">
                       <select size="1" name="departamento" id="departamento">
                         <option value="0" selected disabled>Seleccionar departamento</option>
@@ -64,6 +61,7 @@
                     </label>
                   </div>
                   <div class="input-group" style="margin-top:15px">
+                    <span class="input-label">Municipio</span>
                     <label class="input-fill">
                       <select name="municipio" size="1" disabled id="municipio">
                         <option value="0" selected disabled>Seleccionar ciudad</option>
@@ -72,8 +70,7 @@
                   </div>
                   <div class="input-group">
                     <label class="input-fill">
-                      <input type="password" name="password" id="password" required />
-                      <span class="input-label">Contraseña</span>
+                      <input type="password" placeholder="Contraseña" name="password" id="password" required />
                       <i class="fas fa-lock"></i>
                     </label>
                     <span class="form-error" id="errorPassword"></span>
@@ -81,8 +78,7 @@
                   </div>
                   <div class="input-group">
                     <label class="input-fill">
-                      <input type="password" name="rePassword" id="rePassword" required />
-                      <span class="input-label">Confirma contraseña</span>
+                      <input type="password" placeholder="Confirmar contraseña" name="rePassword" id="rePassword" required />
                       <i class="fas fa-lock"></i>
                     </label>
                     <span class="form-error" id="errorRePassword"></span>

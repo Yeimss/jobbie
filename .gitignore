@@ -1,2 +1,4 @@
-__pychache__/
+core/main/__pychache__/
+core/perfiles/__pychache__/
+jobbie/__pycache__/
 .pyc

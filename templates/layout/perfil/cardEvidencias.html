@@ -1,7 +1,51 @@
-{% load static %}
-<div class="card col-12 col-md-4">
-    <img src={{evidencia.get_image}} class="card-img-top">
-    <div class="card-body">
-    <p class="card-text">{{evidencia.descripcion}}</p>
+<div class="col-12 col-md-4 card-galeria mt-2"> 
+    <div class="card p-3">
+        <img src={{evidencia.get_image}} class="img-fluid card-img-top imgGaleria" alt={{evidencia.descripcion}}>
+        <div class="card-body">
+            <p class="card-text">{{evidencia.descripcion}}</p>
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalEliminar{{evidencia.id}}">
+                    <i class="fa-regular fa-trash-can" style="color:#6288E3;"></i>
+                </button>
+                <button type="button" class="btn btn-outline-primary ms-1" data-bs-toggle="modal" data-bs-target="#modalEditar">
+                    Editar
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="modalEliminar{{evidencia.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Seguro que desea eliminar esta evidencia de trabajo?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href={% url 'borrarEvidencia' id=evidencia.id %} type="button" class="btn btn-danger">Estoy seguro</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Editar evidencia</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body mb-2">
+                <form action={% url 'editarEvidencia' id=evidencia.id %} method="POST">
+                    {% csrf_token %}
+                    {{form}}
+                    <button type="submit" class="btn btn-outline-primary mt-4">Save changes</button>
+                </form>
+            </div>
+          </div>
+        </div>
     </div>
 </div>   

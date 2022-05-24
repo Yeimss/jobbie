@@ -17,13 +17,6 @@ for skill in skills:
 
 
 class SkillsWorked(forms.Form):
-    """ class Meta:
-        model=WorkedSkills
-        fields=('especialidad',)
-        
-        widgets = {
-            'especialidad':forms.CheckboxSelectMultiple()
-        }  """
     especialidad=forms.MultipleChoiceField(
         label="Especialidades",
         required=False,
