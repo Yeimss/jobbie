@@ -7,7 +7,7 @@
                 <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalEliminar{{evidencia.id}}">
                     <i class="fa-regular fa-trash-can" style="color:#6288E3;"></i>
                 </button>
-                <button type="button" class="btn btn-outline-primary ms-1" data-bs-toggle="modal" data-bs-target="#modalEditar">
+                <button type="button" class="btn btn-outline-primary ms-1" data-bs-toggle="modal" data-bs-target="#modalEditar{{evidencia.id}}">
                     Editar
                 </button>
             </div>
@@ -31,7 +31,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalEditar{{evidencia.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -39,9 +39,9 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body mb-2">
-                <form action={% url 'editarEvidencia' id=evidencia.id %} method="POST">
+                <form action={% url 'editarEvidencia' id=evidencia.id %} method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{form}}
+                    {{form2}}
                     <button type="submit" class="btn btn-outline-primary mt-4">Save changes</button>
                 </form>
             </div>

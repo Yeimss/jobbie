@@ -9,7 +9,7 @@
 {% endblock links %}
 
 {% block body %}
-{% include 'layout/header.html' %}
+{% include 'layout/componentes/generales/header.html' %}
 
 <div class="container">
     {% if messages %}
@@ -19,7 +19,7 @@
             </div>
         {% endfor %}
     {% endif %}
-    {%include 'layout/perfil/card.html'%}
+    {%include 'layout/componentes/perfil/card.html'%}
 
     <div class="row">
         <form class="login-form col-12 col-md-8" method='POST' enctype="multipart/form-data">

@@ -9,7 +9,7 @@
 {% endblock links %}
 
 {% block body %}
-{% include 'layout/header.html' %}
+{% include 'layout/componentes/generales/header.html' %}
 
 
 <div class="container">
@@ -22,7 +22,7 @@
     {% endif %}
     <div class="row">
         {% for evidencia in evidencias %}
-           {% include 'layout/perfil/cardEvidencias.html' %}
+           {% include 'layout/componentes/perfil/cardEvidencias.html' %}
         {% endfor %}  
     </div>
 

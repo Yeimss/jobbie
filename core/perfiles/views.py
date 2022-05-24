@@ -27,7 +27,7 @@ def index(request):
 class updateUser(CreateView, DetailView):
     model=Users
     model_skills=WorkedSkills
-    template_name='users/postRegister.html'
+    template_name='users/perfilPropio.html'
     form_class=postRegistro
     form_esp=SkillsWorked
 
@@ -87,6 +87,10 @@ class evidenciasTrabajadores(UpdateView, DetailView):
         persona=self.model.objects.get(id=pk)
         if 'form' not in context:
             context['form']=self.form_class()
+
+        if 'form2' not in context:
+            context['form2']=self.form_class()
+
         if 'evidencias' not in context:
             context['evidencias']=self.model_evidencias.objects.filter(trabajador=pk)
         context['title']='Galeria'
@@ -120,11 +124,13 @@ class evidenciasTrabajadores(UpdateView, DetailView):
             return redirect('galeriaPropia', pk=request.user.id)
 
 def borrarEvidencia(request, id):
-    evidencia=Evidencias.objects.get(pk=id)
-    evidencia.delete()
-
-    messages.warning(request, 'Evidencia eliminada con exito')
-    return redirect('galeriaPropia', pk=request.user.id)
+    try:
+        evidencia=Evidencias.objects.get(pk=id)
+        evidencia.delete()
+        messages.warning(request, 'Evidencia eliminada con exito')
+        return redirect('galeriaPropia', pk=request.user.id)
+    except:
+        return redirect('error')
 
 def editarEvidencia(request, id):
     evidencia=Evidencias.objects.get(pk=id)
@@ -132,6 +138,13 @@ def editarEvidencia(request, id):
     if request.method=='POST':
         if formulario.is_valid():
             formulario.save()
-
+    """ a = Article.objects.get(pk=1)
+    f = ArticleForm(request.POST, instance=a)
+    f.save() """
     messages.warning(request, 'Evidencia actualizada con exito')
     return redirect('galeriaPropia', pk=request.user.id)
+
+def error(request):
+    return render(request,'index/error.html',{
+        'title':'error',
+    })
