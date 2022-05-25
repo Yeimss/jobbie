@@ -19,9 +19,10 @@ def pefil(request, tipo):
         })
 
 def index(request):
-    
+    categorias=Skills.objects.all()
     return render(request, 'index/index.html',{
         'Titulo':'Inicio',
+        'especialidades':categorias
     })
 
 class updateUser(CreateView, DetailView):
@@ -41,6 +42,8 @@ class updateUser(CreateView, DetailView):
             context['form2']=self.form_esp()
         if 'especialidad' not in context:
             context['especialidad']=self.model_skills.objects.filter(trabajador=pk)
+        if 'especialidades' not in context:
+            context['especialidades']=Skills.objects.all()
         context['title']='Perfil'
         context['id']=pk
         
@@ -90,7 +93,8 @@ class evidenciasTrabajadores(UpdateView, DetailView):
 
         if 'form2' not in context:
             context['form2']=self.form_class()
-
+        if 'especialidades' not in context:
+            context['especialidades']=Skills.objects.all()
         if 'evidencias' not in context:
             context['evidencias']=self.model_evidencias.objects.filter(trabajador=pk)
         context['title']='Galeria'

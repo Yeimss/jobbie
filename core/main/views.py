@@ -9,9 +9,10 @@ from django.contrib.auth import login, logout, authenticate
 
 ##-----------------pagina de registro
 def register_page(request):
-
+    categorias=Skills.objects.all()
     return render(request, 'users/register.html',{
         'title':'Registrarse',
+        'especialidades':categorias
     })
 
 
@@ -19,6 +20,7 @@ def register_page(request):
 
 ##-------------------pagina para completar la info del trabajador
 def postRegister(request):
+    categorias=Skills.objects.all()
     if request.method=='POST':
         Worked = Users.objects.get(id=request.user.id)
         formulario=postRegistro(request.POST, request.FILES, instance=Worked)
@@ -33,11 +35,13 @@ def postRegister(request):
     return render(request, 'users/postRegister.html', {
         'titulo':'Registro',
         'form':formulario,
+        'especialidades':categorias
     })
 
 
 ###------------------login page
 def login_page(request):
+    categorias=Skills.objects.all()
     if request.method=='POST':
         formulario=Login(request.POST)
         if formulario.is_valid():
@@ -58,6 +62,7 @@ def login_page(request):
     return render(request, 'users/login.html', {
         'titulo':'Inicio de sesión',
         'form':formulario,
+        'especialidades':categorias
     })
 
 

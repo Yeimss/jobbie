@@ -1,37 +1,11 @@
 body {
   font-family: 'Dosis', sans-serif;
 }
-.header__navbar{
-  font-family: 'Dosis', sans-serif;
-  width: 90%;
-  height: 60px;
-  margin: 0 auto;
-  border-bottom: #6288E3 solid 2px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-nav ul li{
-  list-style-type: none;
-  display: inline-block;
-  padding: 10px  25px;
-}
 
-nav ul li a{
-  color: black;
-  text-decoration: none;
-  font-weight: bold;
-  text-transform: capitalize;
-
-}
-nav ul li a:hover{
-  color: #6288E3;
-  transition: .4s;
-}
 .login-design {
   display: grid;
   grid-template-columns: repeat(2, 50%);
-  height: 80vh;
+  height: 100vh;
 }
 
 .waves {
@@ -159,20 +133,22 @@ select{
   border: 0!important;
   background: #6288E3;
   background-image: none;
-  width: 100%
 
 }
 
-
+select::-ms-expand{
+  display: none;
+}
 .select{
   position: relative;
   display:flex;
-  width: 100%;
+  width: 20em;
   height: 3em;
   line-height: 3;
   background: #6288E3;
   overflow: hidden;
   border-radius: .25em;
+
 }
 
 select{
@@ -191,6 +167,62 @@ select{
 
 }
 
-.form-error{
-  color: red;
+.title h2{
+  color: white;
+  font-size: 75px;
+  margin: 30px auto;
+  text-align: center;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #51535a;
+  color: #51535a;
+  text-align: center;
+}
+.category{
+  background: #6288E3;
+  width: 100%;
+  padding: 100px 0px;
+}
+.rounded-social-buttons {
+  text-align: center;
+}
+
+.rounded-social-buttons .social-button {
+  display: inline-block;
+  cursor: pointer;
+  width: 3.125rem;
+  height: 3.125rem;
+  border: 0.125rem solid transparent;
+  text-decoration: none;
+  text-align: center;
+  color: #fefefe;
+  font-size: 1.5625rem;
+  font-weight: normal;
+  line-height: 2em;
+  border-radius: 1.6875rem;
+  transition: all 0.5s ease;
+}
+
+
+
+.rounded-social-buttons .fa-instagram {
+  font-size: 25px;
+}
+.rounded-social-buttons .social-button.instagram {
+  background: #6288E3;
+}
+
+.rounded-social-buttons .social-button.instagram:hover, .rounded-social-buttons .social-button.instagram:focus {
+  color: #6288E3;
+  background: #fefefe;
+  border-color: #6288E3;
+}
+
+.social{
+  font-size: 25px;
+  font-style: bold;
 }

@@ -75,6 +75,7 @@
   
   a {
     background-color: transparent;
+    text-decoration: none;
   }
   
   /**
@@ -349,4 +350,6 @@
   [hidden] {
     display: none;
   }
-  
+  li{
+    list-style: none;
+  }
