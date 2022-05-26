@@ -1,7 +1,18 @@
-<a href="#">
-    <div class="box">
-        <div class="card">
-        {{especialidad.icono}}
-        <h5>{{especialidad.especialidad}}</h5>
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        {% for especialidad in especialidades %}
+            <div class=" col-12 col-md-3 mt-2">
+                <a href="" style="text-decoration:none; color:#6288E3;"> 
+                    <div class="card-especialidad p-3">
+                        <i class="{{especialidad.icono}} icono m-3"></i>
+                        <h5>{{especialidad.especialidad}}</h5>
+                        <p style="text-align: center;">
+                            <a class="btn" style="text-decoration:none; font-size:20px; ">Ver más</a>
+                        </p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
     </div>
-</a>
+</div>
+

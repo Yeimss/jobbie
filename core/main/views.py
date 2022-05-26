@@ -75,7 +75,7 @@ def save_client(request):
         password=request.POST['password']
         confirmar=request.POST['rePassword']
         city=request.POST['municipio']
-        city=int(city.replace(".",""))
+        #city=int(city.replace(".",""))
         tipo=int(request.POST['tipo'])
 
         if password==confirmar:

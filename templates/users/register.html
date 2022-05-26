@@ -3,95 +3,75 @@
 {% block title %}{{title}}{% endblock title %}
 {% block links %}
   <link rel="stylesheet" href={% static 'styles/style.css' %} />
+  <link rel="stylesheet" href={% static 'styles/styleUsers.css' %} />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 {% endblock links %}
 {% block body %}
 {% include 'layout/componentes/generales/header.html' %}
 
-  {% if messages %}
-    {% for message in messages %}
-      <div class="alert alert-primary message" role="alert">
-          {{message}}
-      </div>
-    {% endfor %}
-  {% endif %}
-
-  
-  <div class="login-design">
-    <div class="waves">
-        <img  src={% static 'images/jobbie.png' %} style="max-width:600px" alt="" />
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-primary message" role="alert">
+        {{message}}
     </div>
-    <div class="login">
-        <div class="login-data">
-            <h1>Registrarse</h1>
-            <form method="POST" class="login-form mt-3" action="{% url 'save' %}">
-                {% csrf_token %}
-                <div class="input-group">
-                  <span class="input-label">¿Qué eres?</span>
-                    <select name="tipo" id="format">
-                      <option value="1">Cliente</option>
-                      <option value="2">Prestador de Servicios</option>
-                    </select>
-                  </div>
-                  <div class="input-group">
-                    <label class="input-fill">
-                      <input type="text" placeholder="Nombre" name="name" id="name" required />
-                      <i class="fa fa-user fa-2x"></i>
-                    </label>
-                  </div>
-                  <div class="input-group">
-                    <label class="input-fill">
-                      <input type="text" placeholder="Apellido" name="lastName" id="lastName" required />
-                      <i class="fa fa-user fa-2x"></i>
-        
-                    </label>
-                  </div>
-                  <div class="input-group">
-                    <label class="input-fill">
-                      <input type="email" placeholder="Email" name="correo" id="correo" required />
-                      <i class="fas fa-envelope"></i>
-                    </label>
-                    <span class="form-error" id="errorCorreo"></span>
-                  </div>
-                  <div class="input-group">
-                    <span class="input-label">Departamento</span>
-                    <label class="input-fill">
-                      <select size="1" name="departamento" id="departamento">
-                        <option value="0" selected disabled>Seleccionar departamento</option>
-                      </select>
-                    </label>
-                  </div>
-                  <div class="input-group" style="margin-top:15px">
-                    <span class="input-label">Municipio</span>
-                    <label class="input-fill">
-                      <select name="municipio" size="1" disabled id="municipio">
-                        <option value="0" selected disabled>Seleccionar ciudad</option>
-                      </select>
-                    </label>
-                  </div>
-                  <div class="input-group">
-                    <label class="input-fill">
-                      <input type="password" placeholder="Contraseña" name="password" id="password" required />
-                      <i class="fas fa-lock"></i>
-                    </label>
-                    <span class="form-error" id="errorPassword"></span>
+  {% endfor %}
+{% endif %}
 
-                  </div>
-                  <div class="input-group">
-                    <label class="input-fill">
-                      <input type="password" placeholder="Confirmar contraseña" name="rePassword" id="rePassword" required />
-                      <i class="fas fa-lock"></i>
-                    </label>
+<main class="container mb-3">
+    <div class="row">
+        <div class="col-12 col-md-7">
+            <img  src={% static 'images/jobbie.png' %} style="max-width:100%" alt="" />
+        </div>
+        <div class="login_data col-12 col-md-5">
+            <h1>Registrarse</h1>
+            <form method="POST" class="login_form mt-3" action="{% url 'save' %}">
+                {% csrf_token %}
+                <div class="input_group">
+                    <span class="input_label">¿Qué eres?</span>
+                    <select name="tipo" id="format">
+                        <option value="1">Cliente</option>
+                        <option value="2">Prestador de Servicios</option>
+                    </select>
+                </div>
+                <div class="input_group">
+                    <input class="form-input" type="text" placeholder="Nombre" name="name" id="name" required />        
+                </div>
+                <div class="input_group">
+                    <input class="form-input" type="text" placeholder="Apellido" name="lastName" id="lastName" required />
+                </div>
+                <div class="input_group">
+                    <input  class="form-input" type="email" placeholder="Email" name="correo" id="correo" required />
+                    <span class="form-error" id="errorCorreo"></span>
+                </div>
+                <div class="input_group">
+                    <span class="input_label">Departamento</span>
+                    <select size="1" name="departamento" id="departamento">
+                        <option value="0" selected disabled>Seleccionar departamento</option>
+                    </select>
+                </div>
+                <div class="input_group" style="margin-top:15px">
+                    <span class="input_label">Municipio</span>
+                    <select name="municipio" size="1" disabled id="municipio">
+                        <option value="0" selected disabled>Seleccionar ciudad</option>
+                    </select>
+                </div>
+                <div class="input_group">
+                    <input class="form-input"  type="password" placeholder="Contraseña" name="password" id="password" required />
+                    <span class="form-error" id="errorPassword"></span>
+                </div>
+                <div class="input_group">
+                    <input class="form-input" type="password" placeholder="Confirmar contraseña" name="rePassword" id="rePassword" required />
                     <span class="form-error" id="errorRePassword"></span>
-                  </div>
-                  <div class="input-group">
+                </div>
+                <div class="input_group">
                     <p>¿Ya tienes una cuenta?</p>
-                      <a href={% url 'login' %}>Inicia Sesión aquí</a>
-                  </div>
+                    <a href={% url 'login' %}>Inicia Sesión aquí</a>
+                </div>
                 <input type="submit" value="Registrarse" id="btnRegistro" class="btn-login w-100 mt-3"/>
             </form>
         </div>
     </div>
-</div>
+</main>
 {% include 'layout/componentes/generales/footer.html' %}
 
 <script>window.jQuery || document.write('<script src="{% static "js/jquery-3.6.0.min.js" %}" type="text/javascript"><\/script>')</script>

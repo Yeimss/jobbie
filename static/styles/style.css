@@ -2,11 +2,6 @@ body {
   font-family: 'Dosis', sans-serif;
 }
 
-.login-design {
-  display: grid;
-  grid-template-columns: repeat(2, 50%);
-  height: 100vh;
-}
 
 .waves {
   background-image: url('');
@@ -24,23 +19,23 @@ body {
   align-items: center;
 }
 
-.login-data {
+.login_data {
   text-align: center;
-  width: 60%;
+  width: 100%;
 }
 
-.login-data h1 {
+.login_data h1 {
   font-weight: 200;
 }
 
-.input-group {
+.input_group {
   position: relative;
   width: 60%;
   margin: 0 auto;
   margin-bottom: 1.5rem;
 }
 
-.input-fill input {
+.input_fill input {
   border: none;
   border-bottom: 3px solid #848f9a;
   width: 100%;
@@ -52,26 +47,26 @@ body {
   padding-bottom: 0.5rem;
 }
 
-.input-fill input:focus {
+.input_fill input:focus {
   outline: none;
   border-color: #6288E3;
 }
 
-.input-fill input:hover {
+.input_fill input:hover {
   background-color: #e9ecef;
 }
 
-.input-fill input:focus + .input-label {
+.input_fill input:focus + .input_label {
   top: 0;
   margin-bottom: 2rem;
   color: #6288E3;
 }
 
-.input-fill input:focus ~ i {
+.input_fill input:focus ~ i {
   color: #6288E3;
 }
 
-.input-fill .input-label {
+.input_fill .input_label {
   position: absolute;
   top: 15px;
   left: 28px;
@@ -81,7 +76,7 @@ body {
   font-weight: 700;
 }
 
-.input-fill i {
+.input_fill i {
   position: absolute;
   top: 19px;
   left: 0;
@@ -89,10 +84,10 @@ body {
   font-size: 1.5rem;
 }
 
-.login-form a {
+.login_form a {
   display: block;
-  width: 85%;
-  text-align: right;
+  width: 100%;
+  text-align: center;
   text-decoration: none;
   color: #848f9a;
   margin-bottom: 1.3rem;
@@ -101,7 +96,7 @@ body {
   font-size: 18px;
 }
 
-.login-form a:hover {
+.login_form a:hover {
   color: #6288E3;
 }
 
@@ -133,6 +128,7 @@ select{
   border: 0!important;
   background: #6288E3;
   background-image: none;
+  width: 100%;
 
 }
 
@@ -185,17 +181,18 @@ select{
 .category{
   background: #6288E3;
   width: 100%;
-  padding: 100px 0px;
+  padding: 30px 0px;
 }
-.rounded-social-buttons {
+.rounded-social_buttons {
   text-align: center;
+  padding: 0px;
 }
 
-.rounded-social-buttons .social-button {
+.rounded-social_buttons .social-button {
   display: inline-block;
   cursor: pointer;
-  width: 3.125rem;
   height: 3.125rem;
+  width: 3.125rem;
   border: 0.125rem solid transparent;
   text-decoration: none;
   text-align: center;
@@ -209,14 +206,14 @@ select{
 
 
 
-.rounded-social-buttons .fa-instagram {
+.rounded-social_buttons .fa-instagram {
   font-size: 25px;
 }
-.rounded-social-buttons .social-button.instagram {
+.rounded-social_buttons .social-button.instagram {
   background: #6288E3;
 }
 
-.rounded-social-buttons .social-button.instagram:hover, .rounded-social-buttons .social-button.instagram:focus {
+.rounded-social_buttons .social-button.instagram:hover, .rounded-social_buttons .social-button.instagram:focus {
   color: #6288E3;
   background: #fefefe;
   border-color: #6288E3;
@@ -225,4 +222,14 @@ select{
 .social{
   font-size: 25px;
   font-style: bold;
+}
+
+.card-especialidad{
+  text-align: center;
+  background-color: #191919;
+  border-radius: 20px;
+}
+
+.icono{
+  font-size: 50px;
 }

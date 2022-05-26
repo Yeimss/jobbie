@@ -26,8 +26,8 @@ class Departaments(models.Model):
 
 class Cities(models.Model):
     city=models.CharField(max_length=50, verbose_name="Ciudad")
-    departametId=models.ForeignKey(Departaments, verbose_name="Departamento", on_delete=models.PROTECT)
-    cod_dane=models.IntegerField(primary_key=True,verbose_name="Codigo_dane", null=False, default=None)
+    departamet=models.ForeignKey(Departaments, verbose_name="Departamento", on_delete=models.PROTECT)
+    cod_dane=models.FloatField(primary_key=True,verbose_name="Codigo_dane", null=False, default=None)
     class Meta:
         verbose_name='Ciudad'
         verbose_name_plural='Ciudades'
@@ -39,7 +39,7 @@ class Cities(models.Model):
 
 class Neighborhoods(models.Model):
     neighborhood=models.CharField(max_length=80, verbose_name="Barrio")
-    cityId=models.ForeignKey(Cities, verbose_name="Ciudad", on_delete=models.PROTECT)
+    city=models.ForeignKey(Cities, verbose_name="Ciudad", on_delete=models.PROTECT)
     class Meta:
         verbose_name='Barrio'
         verbose_name_plural='Barrios'
@@ -81,7 +81,8 @@ class Users(AbstractUser):
         return self.first_name
 
 class Skills(models.Model):
-    especialidad=models.CharField(max_length=50, verbose_name="Especialidad")
+    especialidad=models.CharField(max_length=50, verbose_name="Especialidad", null=False)
+    icono=models.CharField(max_length=100, verbose_name="Icono fontAwesome", null=False)
     class Meta:
         verbose_name='Especialidad'
         verbose_name_plural='Especialidades'
@@ -98,3 +99,16 @@ class WorkedSkills(models.Model):
 
     def __str__(self):
         return str(self.trabajador)
+    
+class Calificaciones(models.Model):
+    cliente=models.ForeignKey(Users,verbose_name="Cliente", related_name="%(class)s_Cliente", on_delete=models.PROTECT, blank=True, null=True, default=None )
+    trabajador=models.ForeignKey(Users,verbose_name="Trabajador",related_name="%(class)s_Trabajador",  on_delete=models.PROTECT, blank=True, null=True, default=None )
+    calificacion=models.IntegerField(verbose_name="Calificación", blank=False, null=False)
+
+class Comentarios(models.Model):
+    cliente=models.ForeignKey(Users,verbose_name="Cliente", related_name="%(class)s_Cliente", on_delete=models.PROTECT, blank=True, null=True, default=None )
+    trabajador=models.ForeignKey(Users,verbose_name="Trabajador", related_name="%(class)s_Trabajador", on_delete=models.PROTECT, blank=True, null=True, default=None )
+    comentario=models.TextField(verbose_name="Comentario", blank=False, null=False)
+    imagen=models.ImageField(default=None, upload_to='comentarios/%m/%d/', blank=True, null=True)
+    
+    
