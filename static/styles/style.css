@@ -135,17 +135,6 @@ select{
 select::-ms-expand{
   display: none;
 }
-.select{
-  position: relative;
-  display:flex;
-  width: 20em;
-  height: 3em;
-  line-height: 3;
-  background: #6288E3;
-  overflow: hidden;
-  border-radius: .25em;
-
-}
 
 select{
   flex:1;
@@ -166,7 +155,6 @@ select{
 .title h2{
   color: white;
   font-size: 75px;
-  margin: 30px auto;
   text-align: center;
 }
 .footer {
@@ -232,4 +220,14 @@ select{
 
 .icono{
   font-size: 50px;
+}
+.crop{
+  position:absolute;
+  left: -100%;
+  right: -100%;
+  top: -100%;
+  bottom: -100%;
+  margin: auto;
+  min-height: 100%;
+  min-width: 100%;
 }

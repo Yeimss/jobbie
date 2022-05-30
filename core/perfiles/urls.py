@@ -9,4 +9,5 @@ urlpatterns = [
     path('galeria/<int:pk>', views.evidenciasTrabajadores.as_view(), name='galeriaPropia'),
     path('borrarEvidencia/<int:id>', views.borrarEvidencia, name="borrarEvidencia"),
     path('editarEvidencia/<int:id>', views.editarEvidencia, name="editarEvidencia"),
+    path('categorias/<int:id>', views.categorias, name="categorias"),
 ]

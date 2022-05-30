@@ -21,7 +21,7 @@ def pefil(request, tipo):
 def index(request):
     categorias=Skills.objects.all()
     return render(request, 'index/index.html',{
-        'Titulo':'Inicio',
+        'titulo':'Inicio',
         'especialidades':categorias
     })
 
@@ -151,4 +151,16 @@ def editarEvidencia(request, id):
 def error(request):
     return render(request,'index/error.html',{
         'title':'error',
+    })
+
+def categorias(request, id):
+    categorias=Skills.objects.all()
+    trabajadores=WorkedSkills.objects.filter(especialidad=id).select_related('trabajador__ciudad').all()
+    titulo=categorias.get(pk=id)
+    titulo=titulo.especialidad
+    return render(request, 'users/categorias.html', {
+        'titulo':titulo,
+        'trabajadores':trabajadores,
+        'especialidades':categorias
+
     })

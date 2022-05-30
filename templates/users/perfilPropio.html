@@ -11,7 +11,7 @@
 {% block body %}
 {% include 'layout/componentes/generales/header.html' %}
 
-<div class="container">
+<div class="container mb-3">
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-primary message" role="alert">
@@ -20,8 +20,7 @@
         {% endfor %}
     {% endif %}
     {%include 'layout/componentes/perfil/card.html'%}
-
-    <div class="row">
+        <div class="row">
         <form class="login-form col-12 col-md-8" method='POST' enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
