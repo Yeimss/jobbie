@@ -1,18 +1,36 @@
 {% load static %}
 <div class="hero">
-    <nav>
-        <ul>
-            <li><a href={% url 'index' %}>Inicio</a></li>
-            <li><a href="#about">Presentación</a></li>
-            <li><a href="#service">Servicios</a></li>
-            <li><a href="#">Trabajos Hechos</a></li>
-            
-        </ul>
-        <a href="#" class="btn">Contactar</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-flex justify-content-around" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="#">Presentanción</a>
+                <a class="nav-link" href="#">Servicios</a>
+                <a class="nav-link" href="#">Trabajos Hechos</a>
+                <a href="#" class="btn">Contactar</a>
+                </div>
+            </div>
+        </div>
     </nav>
 
-    <div class="content">    
-        <h4>Hola, mi nombre es </h4>
-        <h1>{{request.user.first_name}} <span>{{request.user.last_name}}</span></h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 " style="height:400px; overflow:hidden;">
+                <img src="{{trabajador.get_image}}"  class="img-fluid w-100 rounded-circle"/>
+            </div>
+            <div class="col-12 col-md-7 ps-5">
+                <h1>{{trabajador.first_name}} <span>{{trabajador.last_name}}</span></h1>
+                <h2><span>Ciudad: </span>{{trabajador.ciudad}}</h2>
+                <h3>Especialista en:<h3>
+                    <ul>
+                        {% for habilidad in habilidades %}
+                            <li style="font-size: 23px">{{habilidad.especialidad}}</li>
+                        {% endfor %}
+                    </ul>
+            </div>
+        </div>
     </div>
 </div>

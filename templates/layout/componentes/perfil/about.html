@@ -1,19 +1,12 @@
 {% load static %}
 <section id="about" class="about">
     <div class="main">
-        <img src={% static 'images/aboutexample.jpg' %}>
+        <img src={% static 'images/aboutexample.jpg' %} />
         <div class="about-text">
             <h2>Sobre mí</h2>
             <h5>Plomero <span>& Carpintero</span></h5>
             <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                Ab provident facere enim ullam expedita, repellendus laborum, 
-                deleniti distinctio saepe magni ducimus facilis debitis, 
-                unt eligendi dolor id incidunt! Voluptate, illum.
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                Ab provident facere enim ullam expedita, repellendus laborum, 
-                deleniti distinctio saepe magni ducimus facilis debitis, 
-                unt eligendi dolor id incidunt! Voluptate, illum.
+                {{trabajador.descripcion_personal}}
             </p>
             <button type="button">Coticemos</button>
         </div>

@@ -60,14 +60,14 @@ nav ul li a:hover{
     transform: scale(1.2);
 }
 
-.content{
-    position: absolute;
+.contenido{
+    position: relative;
     top: 50%;
     left: 8%;
     transform: translateY(-50%);
     clear: right;
 }
-.content img{
+.contenido img{
     height: auto;
     width: 430px;
     float: center;
@@ -75,7 +75,7 @@ nav ul li a:hover{
 h1{
     color: black;
     margin: 20px  0px  20px;
-    font-size: 200px;
+    font-size: 75px;
 }
 h4{
     color: #6288E3;

@@ -3,7 +3,7 @@
     <div class="row d-flex justify-content-center">
         {% for trabajador in trabajadores %}
             <div class=" col-5 col-md-2 m-1">
-                <a href="#" style="text-decoration:none; color:#6288E3;"> 
+                <a href={% url 'perfil' id=trabajador.trabajador.id %} style="text-decoration:none; color:#6288E3;"> 
                     <div class="card">
                         <div style="height:200px; overflow:hidden;" class="card-img-top d-flex justify-content-center">
                             <img src={{trabajador.trabajador.get_image}} class="rounded w-100 img-fluid" alt="{{trabajador.trabajador.first_name}}">

@@ -8,15 +8,19 @@ from .forms import *
 from django.contrib import messages
 
 # Create your views here.
-def pefil(request, tipo):
-    if(tipo=='Oficial'):
-        return render(request, 'users/perfilWorked.html',{
-            'title':'Perfil',
-        })
-    else:
-        return render(request, 'users/perfilClient.html',{
-            'title':'Perfil',
-        })
+def pefil(request, id):
+    trabajador=Users.objects.get(pk=id)
+    categorias=Skills.objects.all()
+    habilidades=WorkedSkills.objects.filter(trabajador=id).select_related('trabajador').all()
+
+    titulo=f"Perfil {trabajador.first_name}"
+    return render(request, 'users/perfilWorked.html',{
+        'title':titulo,
+        'especialidades':categorias,
+        'trabajador':trabajador,
+        'habilidades':habilidades
+    })
+
 
 def index(request):
     categorias=Skills.objects.all()
