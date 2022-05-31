@@ -213,3 +213,11 @@ h5{
     color: white;
     cursor: pointer;
 }
+.caja-comentarios{
+    border:white solid 2px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+}
+.comentario{
+    border-top:1px solid white;
+}

@@ -7,15 +7,15 @@ class Evidencias(models.Model):
     descripcion=models.TextField(verbose_name="Descripcion", blank=False, null=False, default=None)
     evidenciaPhoto=models.ImageField(default=None, upload_to='evidencias/%m/%d/', blank=False, null=False)
     trabajador=models.ForeignKey(Users, verbose_name="Trabajador", on_delete=models.PROTECT, blank=True, default=None)
-    def get_image(self):
-        if self.evidenciaPhoto:
-            return '{}{}'.format(MEDIA_URL,self.evidenciaPhoto)
-        
     class Meta:
         verbose_name='Evidencia trabajador'
         verbose_name_plural='Evidencias trabajadores'
         db_table="Evidencias"
 
+    def get_image(self):
+        if self.evidenciaPhoto:
+            return '{}{}'.format(MEDIA_URL,self.evidenciaPhoto)
+        
     def __str__(self):
         return str(self.trabajador)
 
@@ -25,11 +25,15 @@ class Coments(models.Model):
     calificacion=models.IntegerField(verbose_name="Calificación", blank=False, null=False)
     comentario=models.TextField(verbose_name="Comentario", blank=False, null=False)
     imagen=models.ImageField(default="", upload_to='comentarios/%m/%d/', blank=True, null=True)
+
     class Meta:
         verbose_name='Comentario'
         verbose_name_plural='Comentarios'
         db_table="comentarios"
 
+    def get_image(self):
+        if self.imagen:
+            return '{}{}'.format(MEDIA_URL,self.imagen)
 
     def __str__(self):
         return str(self.comentario)
@@ -49,7 +53,7 @@ class Skills(models.Model):
 
 class WorkedSkills(models.Model):
     especialidad=models.ForeignKey(Skills,verbose_name="Especialidad", on_delete=models.PROTECT, blank=True, null=True, default=None)
-    trabajador=models.ForeignKey(Users,verbose_name="Trabajador", on_delete=models.PROTECT, blank=True, null=True, default=None )
+    trabajador=models.ForeignKey(Users,verbose_name="Trabajador", on_delete=models.PROTECT, blank=True, null=True, default=None)
     class Meta:
         verbose_name='Especialidad trabajador'
         verbose_name_plural='Especialidades trabajadores'

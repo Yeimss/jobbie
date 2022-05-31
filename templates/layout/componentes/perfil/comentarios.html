@@ -22,8 +22,8 @@
                                         <div class="row d-flex justify-content-center">
                                             <div class="text-center " style="color:white;">{{field.label}}</div>
                                             {% for element in field %}
-                                                <div class="col-2 mt-3">
-                                                    {{element}}
+                                                <div class="col-2 mt-2" style="color:white">
+                                                    <i class="fa-solid fa-star-sharp" style="color:white;">{{element}}</i>
                                                 </div>
                                             {% endfor %}
                                         </div>
@@ -34,8 +34,38 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-12 col-md-6">
-                </div>
+                {% if comentarios %}
+                    <div class="col-12 pt-4">
+                        <div class="caja-comentarios p-3">
+                            <div class="row">
+
+                            {% for comentario in comentarios %}
+                                {% if forloop.first %}
+                                    <div class="col-12 pb-4">
+                                        <h3 class="ps-3" style="color:white">{{comentario.cliente}}</h3>
+                                        <p class="ps-5" style="color:white">{{comentario.comentario}}</p>
+                                        {% if comentario.get_image != "" %}
+                                            <div style="max-width:300px" class="ps-5">
+                                                <img src="{{comentario.get_image}}" class="w-100 img-fluid" >
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    {% else %}
+                                    <div class="col-12 comentario pb-4 pt-3">
+                                        <h3 class="ps-3" style="color:white">{{comentario.cliente}}</h3>
+                                        <p class="ps-5" style="color:white">{{comentario.comentario}}</p>
+                                        {% if comentario.imagen != "" %}
+                                            <div style="max-width:300px" class="ps-5">
+                                                <img src="{{comentario.get_image}}" class="w-100 img-fluid" >
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>

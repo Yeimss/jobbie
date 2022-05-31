@@ -1,5 +1,6 @@
+from calendar import c
 from django.shortcuts import render, redirect
-from django.views.generic import UpdateView, DetailView, CreateView,DeleteView
+from django.views.generic import UpdateView, DetailView, CreateView,DeleteView, ListView
 from core.main.forms import SkillsWorked, postRegistro
 from core.main.models import Users
 from .models import *
@@ -8,7 +9,7 @@ from .forms import *
 from django.contrib import messages
 
 # Create your views here.
-def pefil(request, id):
+""" def pefil(request, id):
     trabajador=Users.objects.get(pk=id)
     categorias=Skills.objects.all()
     habilidades=WorkedSkills.objects.filter(trabajador=id).select_related('trabajador').select_related('especialidad').all()
@@ -22,57 +23,61 @@ def pefil(request, id):
         'habilidades':habilidades,
         'evidencias':evidencias,
         'comentForm':form
-    })
+    }) """
 
-class Pefillll(CreateView, DetailView):
-    model_user=Users
-    model_evidencias=Evidencias
-    model_trabajador=Users
-    model_habilidades=WorkedSkills
-    model_categorias=Skills
+class Perfil(CreateView, DeleteView):
+    model=Users
     template_name='users/perfilWorked.html'
-    form_coment=ComentForm
+    form_class=ComentForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         pk=self.kwargs.get('pk',0)
-        persona=self.model.objects.get(id=pk)
-
+        trabajador=self.model.objects.get(id=pk)
+        titulo=f"Perfil {trabajador.first_name}"
         if 'comentForm' not in context:
-            context['form']=self.form_coment()
+            context['comentForm']=self.form_class()
         if 'especialidades' not in context:
             context['especialidades']=Skills.objects.all()
         if 'evidencias' not in context:
-            context['evidencias']=self.model_evidencias.objects.filter(trabajador=pk)
-        context['title']='Galeria'
+            context['evidencias']=Evidencias.objects.filter(trabajador=pk).all()
+        if 'habilidades' not in context:
+            context['habilidades']=WorkedSkills.objects.filter(trabajador=pk).select_related('trabajador').select_related('especialidad').all()
+        if 'trabajador' not in context:
+            context['trabajador']=trabajador
+        if 'comentarios' not in context:
+            context['comentarios']=Coments.objects.filter(trabajador=pk)
+        context['title']=titulo
         context['id']=pk
-        
         return context
     
-    def post(self,request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         self.object=self.get_object
         id_persona=kwargs['pk']
-        persona=self.model.objects.get(id=id_persona)
+        usuarioLog=self.model.objects.get(id=request.user.id)
+        trabajador=self.model.objects.get(id=id_persona)
         if request.method=='POST':
             form=self.form_class(request.POST,request.FILES)
             if(form.is_valid()):
                 data=form.cleaned_data
-                descripcion=data['descripcion']
-                evidenciaPhoto=data['evidenciaPhoto']
-                evidence=Evidencias(
-                    descripcion=descripcion,
-                    evidenciaPhoto=evidenciaPhoto,
-                    trabajador=persona
-                )
-                evidence.save() 
+                imagen=data['imagen']
+                comentario=data['comentario']
+                calificacion=data['calificacion']
                 
-                messages.warning(request, 'Evidencia agregada correctamente')
+                comentario=Coments(
+                    comentario=comentario,
+                    imagen=imagen,
+                    calificacion=calificacion,
+                    cliente=usuarioLog,
+                    trabajador=trabajador,
+                )
+                comentario.save() 
 
-                return redirect('galeriaPropia', pk=request.user.id)
+                return redirect('perfil', pk=trabajador.id)
 
         else:
             messages.warning(request, 'Hay algun error en el formulario')
-            return redirect('galeriaPropia', pk=request.user.id)
+            return redirect('perfil', pk=trabajador.id)
 
 
 def index(request):
