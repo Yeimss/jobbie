@@ -231,3 +231,25 @@ select{
   min-height: 100%;
   min-width: 100%;
 }
+.button{
+  background-color: #6288E3;
+  color: black;
+  text-decoration: none;
+  border: 2px solid transparent;
+  font-weight: bold;
+  padding: 10px  25px;
+  border-radius: 30px;
+  transition: transform .4s;
+}
+.button:hover{
+  background-color: transparent;
+  border: 2px solid #6288E3;
+  transform: scale(1.2);
+}
+.color-paginator li a{
+    color: #191919;
+}
+.color-paginator li a:hover{
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+}

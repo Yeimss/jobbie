@@ -1,5 +1,4 @@
 {% load static %}
-{% if request.user.email %}
 <section id="comentarios" class="pt-5 pb-5" style="background:#191919">
     <div class="container">
         <div class="row d-flex justify-content-center">
@@ -7,33 +6,41 @@
                 <h3 style="color:white" class="fs-1">Comentarios</h3>
             </div>
             <div class="row">
-                <div class="col-12">
-                    <form method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="row">
-                            {% for field in comentForm %}
-                                {% if not forloop.last %}
-                                    <div class="col-11 col-md-4 mt-3">
-                                        <div class="text-center " style="color:white;">{{field.label}}</div>
-                                        {{field}}
-                                    </div>
-                                    {% else %}
-                                    <div class="col-11 col-md-4 mt-3">
-                                        <div class="row d-flex justify-content-center">
+                {% if request.user.email %}
+                    <div class="col-12">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                {% for field in comentForm %}
+                                    {% if not forloop.last %}
+                                        <div class="col-11 col-md-4 mt-3">
                                             <div class="text-center " style="color:white;">{{field.label}}</div>
-                                            {% for element in field %}
-                                                <div class="col-2 mt-2" style="color:white">
-                                                    <i class="fa-solid fa-star-sharp" style="color:white;">{{element}}</i>
-                                                </div>
-                                            {% endfor %}
+                                            {{field}}
                                         </div>
+                                        {% else %}
+                                        <div class="col-11 col-md-4 mt-3">
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="text-center " style="color:white;">{{field.label}}</div>
+                                                {% for element in field %}
+                                                <div class="col-2 mt-2" style="color:white">
+                                                    {{element}}
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}   
+                                        <input type="submit" value="Agregar comentario" class="button-coment w-100 mt-3"/>
                                     </div>
-                                {% endif %}
-                            {% endfor %}   
-                            <input type="submit" value="Agregar comentario" class="btn-login w-100 mt-3"/>
-                        </div>
-                    </form>
-                </div>
+                                </form>
+                            </div>
+                    {% else %}
+                    <div class="col-12 caja-comentarios pt-2 pb-2">
+                        <h3 class="text-center" style="color:white;">Debes iniciar sesión para poder comentar</h3>
+                    </div>
+                {% endif %}
+
+
                 {% if comentarios %}
                     <div class="col-12 pt-4">
                         <div class="caja-comentarios p-3">
@@ -70,5 +77,3 @@
         </div>
     </div>
 </section>
-
-{% endif %}

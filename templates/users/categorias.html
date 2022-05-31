@@ -10,10 +10,11 @@
 {% block body %}
     {% include 'layout/componentes/generales/header.html' %}
 
-        <main class="mb-4">
+        <main class="mb-4 mt-4">
             {% include 'layout/componentes/categorias/perfilesCategorias.html' %}
-        </main>
 
+            {% include 'layout/componentes/categorias/paginator.html' %}
+        </main>
 
     {% include 'layout/componentes/generales/footer.html' %}
 {% endblock body %}

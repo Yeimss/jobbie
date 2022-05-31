@@ -1,17 +1,16 @@
 {% load static %}
-<div class="hero mb-4">
+<div class="hero mb-4 mt-2">
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuUser" aria-controls="menuUser" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuUser" aria-controls="menuUser" aria-expanded="true" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse d-flex justify-content-around" id="menuUser">
                 <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="#service">Presentanción</a>
+                <a class="nav-link" aria-current="page" href="#service">Presentanción</a>
                 <a class="nav-link" href="#about">Evicencias de trabajo</a>
                 <a class="nav-link" href="#comentarios">Comentarios</a>
-                {% comment %} <a href="#" class="btn">Contactar</a> {% endcomment %}
-                </div>
+                <a href="#" class="button">Contactar</a>
             </div>
         </div>
     </nav>
@@ -22,14 +21,26 @@
                 <img src="{{trabajador.get_image}}"  class="w-100 img-fluid">
             </div>
             <div class="col-12 col-md-7 ps-5">
-                <h1>{{trabajador.first_name}} <span>{{trabajador.last_name}}</span></h1>
-                <h2><span>Ciudad: </span>{{trabajador.ciudad}}</h2>
-                <h3>Especialista en:<h3>
-                    <ul>
-                        {% for habilidad in habilidades %}
-                            <li style="font-size: 23px">{{habilidad.especialidad}}</li>
-                        {% endfor %}
-                    </ul>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h1>{{trabajador.first_name}} <span>{{trabajador.last_name}}</span></h1>
+                        <h2 class="mt-2 mb-2"><span>Ciudad: </span>{{trabajador.ciudad}}</h2>
+                        <h3>Especialista en:<h3>
+                            <ul>
+                                {% for habilidad in habilidades %}
+                                    <li style="font-size: 23px">{{habilidad.especialidad}}</li>
+                                {% endfor %}
+                            </ul>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h3><span>Descripcion</span><h3>
+                        {% if trabajador.descripcion_personal != None and trabajador.descripcion_personal != ""  %}
+                            {{trabajador.descripcion_personal}}
+                            {% else %}
+                            <h4>Este usuario aún no ha ingresado su descripcion personal</h4>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -1,5 +1,6 @@
 from calendar import c
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
 from django.views.generic import UpdateView, DetailView, CreateView,DeleteView, ListView
 from core.main.forms import SkillsWorked, postRegistro
 from core.main.models import Users
@@ -9,22 +10,6 @@ from .forms import *
 from django.contrib import messages
 
 # Create your views here.
-""" def pefil(request, id):
-    trabajador=Users.objects.get(pk=id)
-    categorias=Skills.objects.all()
-    habilidades=WorkedSkills.objects.filter(trabajador=id).select_related('trabajador').select_related('especialidad').all()
-    evidencias=Evidencias.objects.filter(trabajador=id).all()
-    form=ComentForm(request.POST, request.FILES)
-    titulo=f"Perfil {trabajador.first_name}"
-    return render(request, 'users/perfilWorked.html',{
-        'title':titulo,
-        'especialidades':categorias,
-        'trabajador':trabajador,
-        'habilidades':habilidades,
-        'evidencias':evidencias,
-        'comentForm':form
-    }) """
-
 class Perfil(CreateView, DeleteView):
     model=Users
     template_name='users/perfilWorked.html'
@@ -213,12 +198,24 @@ def error(request):
 
 def categorias(request, id):
     categorias=Skills.objects.all()
+
     trabajadores=WorkedSkills.objects.filter(especialidad=id).select_related('trabajador__ciudad').all()
+
+    #paginar los trabajadoes
+    paginator_trabajadores=Paginator(trabajadores, 10)
+
+    #recoger numero de paginas
+    page=request.GET.get('page') or 1
+    page_workeds=paginator_trabajadores.get_page(page)
+    current_page=int(page)
+    cant_pages= range(1,page_workeds.paginator.num_pages +1)
     titulo=categorias.get(pk=id)
     titulo=titulo.especialidad
     return render(request, 'users/categorias.html', {
         'titulo':titulo,
-        'trabajadores':trabajadores,
-        'especialidades':categorias
+        'trabajadores':page_workeds,
+        'especialidades':categorias,
+        'pagina_actual':current_page,
+        'cant_pages':cant_pages,
 
     })

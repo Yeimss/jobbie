@@ -5,6 +5,11 @@
     box-sizing: border-box;
 
 }
+
+body {
+    font-family: 'Dosis', sans-serif;
+}
+
 .hero{
     width: 100%;
     background-color: #ffffff;
@@ -43,9 +48,7 @@ nav ul li a:hover{
     color: #6288E3;
     transition: .4s;
 }
-
-
-.btn{
+.button{
     background-color: #6288E3;
     color: black;
     text-decoration: none;
@@ -55,9 +58,28 @@ nav ul li a:hover{
     border-radius: 30px;
     transition: transform .4s;
 }
-.btn:hover{
+.button:hover{
+    background-color: transparent;
+    border: 2px solid #6288E3;
     transform: scale(1.2);
 }
+.button-coment{
+    background-color: #6288E3;
+    color: black;
+    text-decoration: none;
+    border: none;
+    font-weight: bold;
+    padding: 10px  25px;
+    border-radius: 30px;
+    transition: transform .4s;
+}
+.button-coment:hover{
+    background-color: transparent;
+    border: 2px solid #FFFFFF;
+    COLOR:white;
+    transform: scale(1.2);
+}
+
 
 .contenido{
     position: relative;
