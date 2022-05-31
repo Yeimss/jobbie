@@ -1,16 +1,16 @@
 {% load static %}
-<div class="hero">
+<div class="hero mb-4">
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuUser" aria-controls="menuUser" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse d-flex justify-content-around" id="navbarNavAltMarkup">
+            <div class="collapse navbar-collapse d-flex justify-content-around" id="menuUser">
                 <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="#">Presentanción</a>
-                <a class="nav-link" href="#">Servicios</a>
-                <a class="nav-link" href="#">Trabajos Hechos</a>
-                <a href="#" class="btn">Contactar</a>
+                <a class="nav-link active" aria-current="page" href="#service">Presentanción</a>
+                <a class="nav-link" href="#about">Evicencias de trabajo</a>
+                <a class="nav-link" href="#comentarios">Comentarios</a>
+                {% comment %} <a href="#" class="btn">Contactar</a> {% endcomment %}
                 </div>
             </div>
         </div>
@@ -18,8 +18,8 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-12 col-md-5 " style="height:400px; overflow:hidden;">
-                <img src="{{trabajador.get_image}}"  class="img-fluid w-100 rounded-circle"/>
+            <div class="col-12 col-md-5 rounded-circle d-flex justify-content-center" style="max-height:400px; overflow:hidden;">
+                <img src="{{trabajador.get_image}}"  class="w-100 img-fluid">
             </div>
             <div class="col-12 col-md-7 ps-5">
                 <h1>{{trabajador.first_name}} <span>{{trabajador.last_name}}</span></h1>

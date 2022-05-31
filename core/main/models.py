@@ -8,6 +8,8 @@ class Genders(models.Model):
     class Meta:
         verbose_name='Genero'
         verbose_name_plural='Generos'
+        db_table='Generos'
+
     
     def __str__(self):
         return self.gender
@@ -54,6 +56,8 @@ class Types(models.Model):
     class Meta:
         verbose_name='Tipo'
         verbose_name_plural='Tipos'
+        db_table="TypeUser"
+
 
     def __str__(self):
         return self.tipoUsuario
@@ -80,35 +84,3 @@ class Users(AbstractUser):
     def __str__(self):
         return self.first_name
 
-class Skills(models.Model):
-    especialidad=models.CharField(max_length=50, verbose_name="Especialidad", null=False)
-    icono=models.CharField(max_length=100, verbose_name="Icono fontAwesome", null=False)
-    class Meta:
-        verbose_name='Especialidad'
-        verbose_name_plural='Especialidades'
-    def __str__(self):
-        return self.especialidad
-
-
-class WorkedSkills(models.Model):
-    especialidad=models.ForeignKey(Skills,verbose_name="Especialidad", on_delete=models.PROTECT, blank=True, null=True, default=None)
-    trabajador=models.ForeignKey(Users,verbose_name="Trabajador", on_delete=models.PROTECT, blank=True, null=True, default=None )
-    class Meta:
-        verbose_name='Especialidad trabajador'
-        verbose_name_plural='Especialidades trabajadores'
-
-    def __str__(self):
-        return str(self.trabajador)
-    
-class Calificaciones(models.Model):
-    cliente=models.ForeignKey(Users,verbose_name="Cliente", related_name="%(class)s_Cliente", on_delete=models.PROTECT, blank=True, null=True, default=None )
-    trabajador=models.ForeignKey(Users,verbose_name="Trabajador",related_name="%(class)s_Trabajador",  on_delete=models.PROTECT, blank=True, null=True, default=None )
-    calificacion=models.IntegerField(verbose_name="Calificación", blank=False, null=False)
-
-class Comentarios(models.Model):
-    cliente=models.ForeignKey(Users,verbose_name="Cliente", related_name="%(class)s_Cliente", on_delete=models.PROTECT, blank=True, null=True, default=None )
-    trabajador=models.ForeignKey(Users,verbose_name="Trabajador", related_name="%(class)s_Trabajador", on_delete=models.PROTECT, blank=True, null=True, default=None )
-    comentario=models.TextField(verbose_name="Comentario", blank=False, null=False)
-    imagen=models.ImageField(default=None, upload_to='comentarios/%m/%d/', blank=True, null=True)
-    
-    

@@ -1,6 +1,8 @@
 from django import forms
 from django.core import validators
 from core.main.models import *
+from core.perfiles.models import *
+
 from django.forms import ModelForm
 
 generos=Genders.objects.all()

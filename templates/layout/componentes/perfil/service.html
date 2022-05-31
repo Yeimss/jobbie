@@ -1,54 +1,20 @@
 {% load static %}
-<div class="service" id="service">
-    <div class="title">
-        <h2>Mis Servicios</h2>
-    </div>
-
-    <div class="box">
-        <div class="card">
-            <i class="fas fa-toilet"></i>
-            <h5>Plomería</h5>
-            <div class="pra">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                     Accusamus a aperiam voluptatem exercitationem odit 
-                     corporis minus voluptas similique ducimus ullam officia 
-                     fuga harum eveniet repellendus, iste aspernatur pariatur ipsam illo.</p>
-
-                <p style="text-align: center;">
-                    <a class="button" href="#">Ver más</a>
-                </p>
+<section class="service pb-5 pb-3" id="service">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="title">
+                <h2>Mis Servicios</h2>
             </div>
-        </div>
-
-        <div class="card">
-            <i class="fa fa-door-closed"></i>
-            <h5>Carpintería</h5>
-            <div class="pra">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                     Accusamus a aperiam voluptatem exercitationem odit 
-                     corporis minus voluptas similique ducimus ullam officia 
-                     fuga harum eveniet repellendus, iste aspernatur pariatur ipsam illo.</p>
-                <p style="text-align: center;">
-                    <a class="button" href="#">Ver más</a>
-                </p>
-            </div>
-        </div>
-
-        <div class="card">
-            
-            <i class="fa fa-paint-roller"></i>
-            <h5>Pintura</h5>
-            <div class="pra">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                     Accusamus a aperiam voluptatem exercitationem odit 
-                     corporis minus voluptas similique ducimus ullam officia 
-                     fuga harum eveniet repellendus, iste aspernatur pariatur ipsam illo.</p>
-
-                <p style="text-align: center;">
-                    <a class="button" href="#">Ver más<script></script></a>
-                </p>
-            </div>
+            {% for habilidad in habilidades %}
+                <div class=" col-12 col-md-3 mt-2"> 
+                    <div class="card-especialidad p-3">
+                        <i class="{{habilidad.especialidad.icono}} icono m-3" style="color:white"></i>
+                        <h5>{{habilidad.especialidad.especialidad}}</h5>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
-</div>
+</section>
+
 

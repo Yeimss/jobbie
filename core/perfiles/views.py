@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import UpdateView, DetailView, CreateView,DeleteView
 from core.main.forms import SkillsWorked, postRegistro
-from core.main.models import Skills, Users, WorkedSkills
+from core.main.models import Users
 from .models import *
 from .forms import *
 
@@ -11,15 +11,68 @@ from django.contrib import messages
 def pefil(request, id):
     trabajador=Users.objects.get(pk=id)
     categorias=Skills.objects.all()
-    habilidades=WorkedSkills.objects.filter(trabajador=id).select_related('trabajador').all()
-
+    habilidades=WorkedSkills.objects.filter(trabajador=id).select_related('trabajador').select_related('especialidad').all()
+    evidencias=Evidencias.objects.filter(trabajador=id).all()
+    form=ComentForm(request.POST, request.FILES)
     titulo=f"Perfil {trabajador.first_name}"
     return render(request, 'users/perfilWorked.html',{
         'title':titulo,
         'especialidades':categorias,
         'trabajador':trabajador,
-        'habilidades':habilidades
+        'habilidades':habilidades,
+        'evidencias':evidencias,
+        'comentForm':form
     })
+
+class Pefillll(CreateView, DetailView):
+    model_user=Users
+    model_evidencias=Evidencias
+    model_trabajador=Users
+    model_habilidades=WorkedSkills
+    model_categorias=Skills
+    template_name='users/perfilWorked.html'
+    form_coment=ComentForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk=self.kwargs.get('pk',0)
+        persona=self.model.objects.get(id=pk)
+
+        if 'comentForm' not in context:
+            context['form']=self.form_coment()
+        if 'especialidades' not in context:
+            context['especialidades']=Skills.objects.all()
+        if 'evidencias' not in context:
+            context['evidencias']=self.model_evidencias.objects.filter(trabajador=pk)
+        context['title']='Galeria'
+        context['id']=pk
+        
+        return context
+    
+    def post(self,request, *args, **kwargs):
+        self.object=self.get_object
+        id_persona=kwargs['pk']
+        persona=self.model.objects.get(id=id_persona)
+        if request.method=='POST':
+            form=self.form_class(request.POST,request.FILES)
+            if(form.is_valid()):
+                data=form.cleaned_data
+                descripcion=data['descripcion']
+                evidenciaPhoto=data['evidenciaPhoto']
+                evidence=Evidencias(
+                    descripcion=descripcion,
+                    evidenciaPhoto=evidenciaPhoto,
+                    trabajador=persona
+                )
+                evidence.save() 
+                
+                messages.warning(request, 'Evidencia agregada correctamente')
+
+                return redirect('galeriaPropia', pk=request.user.id)
+
+        else:
+            messages.warning(request, 'Hay algun error en el formulario')
+            return redirect('galeriaPropia', pk=request.user.id)
 
 
 def index(request):
@@ -94,7 +147,6 @@ class evidenciasTrabajadores(UpdateView, DetailView):
         persona=self.model.objects.get(id=pk)
         if 'form' not in context:
             context['form']=self.form_class()
-
         if 'form2' not in context:
             context['form2']=self.form_class()
         if 'especialidades' not in context:
@@ -146,9 +198,6 @@ def editarEvidencia(request, id):
     if request.method=='POST':
         if formulario.is_valid():
             formulario.save()
-    """ a = Article.objects.get(pk=1)
-    f = ArticleForm(request.POST, instance=a)
-    f.save() """
     messages.warning(request, 'Evidencia actualizada con exito')
     return redirect('galeriaPropia', pk=request.user.id)
 

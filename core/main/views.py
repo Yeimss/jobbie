@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from core.main.models import *
+from core.perfiles.models import *
 from .forms import Login, postRegistro
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
@@ -12,29 +13,6 @@ def register_page(request):
     categorias=Skills.objects.all()
     return render(request, 'users/register.html',{
         'title':'Registrarse',
-        'especialidades':categorias
-    })
-
-
-
-
-##-------------------pagina para completar la info del trabajador
-def postRegister(request):
-    categorias=Skills.objects.all()
-    if request.method=='POST':
-        Worked = Users.objects.get(id=request.user.id)
-        formulario=postRegistro(request.POST, request.FILES, instance=Worked)
-        if formulario.is_valid():
-            formulario.save()
-            
-            messages.warning(request, 'datos actualizados')
-            return redirect('index')
-    else:
-        formulario=postRegistro()
-
-    return render(request, 'users/postRegister.html', {
-        'titulo':'Registro',
-        'form':formulario,
         'especialidades':categorias
     })
 

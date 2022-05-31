@@ -1,14 +1,65 @@
 {% load static %}
-<section id="about" class="about">
-    <div class="main">
-        <img src={% static 'images/aboutexample.jpg' %} />
-        <div class="about-text">
-            <h2>Sobre mí</h2>
-            <h5>Plomero <span>& Carpintero</span></h5>
-            <p>
-                {{trabajador.descripcion_personal}}
-            </p>
-            <button type="button">Coticemos</button>
+<section id="about" class="about pt-5 pb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center title">
+                <h2>Trabajos realizados</h2>
+            </div>
+            {% if evidencias  %}
+                <div class="col-12 d-flex justify-content-center">
+                    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            {% for evidencia in evidencias %}
+                                {% if forloop.first %}
+                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide {{forloop.counter}}"></button>
+                                    {% else %}
+                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{forloop.counter0}}" aria-label="Slide {{forloop.counter}}" ></button>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="carousel-inner">
+                        {% for evidencia in evidencias %}
+                            {% if forloop.first %}
+                                <div class="carousel-item active">
+                                    <div class="rounded d-flex justify-content-center" style="height:700px;">
+                                        <img src={{evidencia.get_image}} class="w-100 d-block" alt="{{evidencia.descripcion}}">
+                                    </div>
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5>{{evidencia.descripcion}}</h5>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="carousel-item">
+                                    <div class="rounded d-flex justify-content-center" style="height:700px;">
+                                        <img src={{evidencia.get_image}} class="w-100 d-block" alt="{{evidencia.descripcion}}">
+                                    </div>
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5>{{evidencia.descripcion}}</h5>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                        
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Anterior</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Siguiente</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+        {% else %}
+        <div class="container">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <h2>Este usuario aún no ha registrado ninguna evidencia de trabajo</h2>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 </section>

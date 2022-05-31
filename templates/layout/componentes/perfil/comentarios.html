@@ -1,0 +1,44 @@
+{% load static %}
+{% if request.user.email %}
+<section id="comentarios" class="pt-5 pb-5" style="background:#191919">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 d-flex justify-content-center title">
+                <h3 style="color:white" class="fs-1">Comentarios</h3>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            {% for field in comentForm %}
+                                {% if not forloop.last %}
+                                    <div class="col-11 col-md-4 mt-3">
+                                        <div class="text-center " style="color:white;">{{field.label}}</div>
+                                        {{field}}
+                                    </div>
+                                    {% else %}
+                                    <div class="col-11 col-md-4 mt-3">
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="text-center " style="color:white;">{{field.label}}</div>
+                                            {% for element in field %}
+                                                <div class="col-2 mt-3">
+                                                    {{element}}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}   
+                            <input type="submit" value="Agregar comentario" class="btn-login w-100 mt-3"/>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-12 col-md-6">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endif %}
