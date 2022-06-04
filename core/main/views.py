@@ -46,40 +46,47 @@ def login_page(request):
 
 ##---------------metodo para registrar un cliente
 def save_client(request):
-    if request.method=='POST':
-        name=request.POST['name']
-        lastName=request.POST['lastName']
-        correo=request.POST['correo']
-        password=request.POST['password']
-        confirmar=request.POST['rePassword']
-        city=request.POST['municipio']
-        #city=int(city.replace(".",""))
-        tipo=int(request.POST['tipo'])
+    try:
+        if request.method=='POST':
+            name=request.POST['name']
+            lastName=request.POST['lastName']
+            correo=request.POST['correo']
+            password=request.POST['password']
+            confirmar=request.POST['rePassword']
+            city=request.POST['municipio']
+            #city=int(city.replace(".",""))
+            tipo=int(request.POST['tipo'])
 
-        if password==confirmar:
-            client = Users(
-                first_name=name,
-                last_name=lastName,
-                email=correo,
-                ciudad=Cities.objects.get(cod_dane=city),
-                type=Types.objects.get(id=tipo)
-            )
-            client.set_password(password)
-            client.save()
+            if password==confirmar:
+                correo_existente=Users.objects.get(email=correo).exists()
+                if correo_existente:
+                    messages.success(request, f"El correo ya existe, por favor inicie sesion")
+                    return redirect('login')
 
-            user=authenticate(request ,username=correo,password=password)
-            login(request, user)
+                client = Users(
+                    first_name=name,
+                    last_name=lastName,
+                    email=correo,
+                    ciudad=Cities.objects.get(cod_dane=city),
+                    type=Types.objects.get(id=tipo)
+                )
+                client.set_password(password)
+                client.save()
 
-            if tipo==2:
-                messages.success(request, f"Por favor complete su perfil")
-                return redirect('perfilUpdate', pk=request.user.id)
+                user=authenticate(request ,username=correo,password=password)
+                login(request, user)
+
+                if tipo==2:
+                    messages.success(request, f"Por favor complete su perfil")
+                    return redirect('perfilUpdate', pk=request.user.id)
+                else:
+                    return redirect('perfilUpdate',  pk=request.user.id)
+                    
+        
             else:
-                return redirect('perfilUpdate',  pk=request.user.id)
-                
-    
-        else:
-            messages.success(request, f"las contraseñas debens ser iguales")
-    
+                messages.success(request, f"las contraseñas debens ser iguales")
+    except:
+        return redirect('error')
 
 ##-------------------cerrar sesion
 
