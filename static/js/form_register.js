@@ -45,7 +45,6 @@ function registrarse() {
 var registrarse = new registrarse();
 
 $(document).ready(function () {
-    
     registrarse.CargarDptos();
     $('#departamento').on('change', function () {
         if (this.value !== "") {

@@ -57,8 +57,8 @@ def save_client(request):
             #city=int(city.replace(".",""))
             tipo=int(request.POST['tipo'])
 
-            if password==confirmar:
-                correo_existente=Users.objects.get(email=correo).exists()
+            if password==confirmar and city != 0:
+                correo_existente=Users.objects.filter(email=correo).exists()
                 if correo_existente:
                     messages.success(request, f"El correo ya existe, por favor inicie sesion")
                     return redirect('login')
@@ -81,8 +81,9 @@ def save_client(request):
                     return redirect('perfilUpdate', pk=request.user.id)
                 else:
                     return redirect('perfilUpdate',  pk=request.user.id)
-                    
-        
+
+            elif city == 0:
+                messages.success(request, f"Por favor elija una ciudad")
             else:
                 messages.success(request, f"las contraseñas debens ser iguales")
     except:
