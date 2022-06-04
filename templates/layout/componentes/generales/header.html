@@ -27,8 +27,8 @@
                       <li class="nav-item"><a class="nav-link " aria-current="page" href={% url 'perfilUpdate' pk=request.user.id %} style="color:#6288E3;">{{request.user.first_name}}</a></li>
                       <li class="nav-item"><a class="nav-link " aria-current="page" href={% url 'logout' %} style="color:#6288E3;">Cerrar Sesion</a></li>
                   {% else %}
-                      <li class="nav-item p-1 mt-1"><a href={% url 'login' %} class="button">Iniciar Sesión</a></li>
-                      <li class="nav-item p-1 mt-1"><a href={% url 'register' %} class="button">Registrarse</a></li>
+                      <li class="nav-item"><a href={% url 'login' %} class="nav-link" style="color:#6288E3;">Iniciar Sesión</a></li>
+                      <li class="nav-item"><a href={% url 'register' %} class="nav-link " style="color:#6288E3;">Registrarse</a></li>
                   {% endif %}
               </ul>
           </div>
